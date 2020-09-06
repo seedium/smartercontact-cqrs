@@ -80,6 +80,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.6.4"],
             ["pino-pretty", "npm:4.2.1"],
             ["ps-tree", "npm:1.2.0"],
+            ["string-argv", "npm:0.3.1"],
             ["tsc-watch", "virtual:361a1266ef1f9b1994abdc2e99f40d3c724cbfa0449ec9dec1ab9808082992b00e696abbaec2407c7ae3e5cf811454a4b33a0c099a7cb1f5dcb58572b86184c4#npm:4.2.9"],
             ["tslib", "npm:2.0.1"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
@@ -1016,6 +1017,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:14.6.4"],
             ["pino-pretty", "npm:4.2.1"],
             ["ps-tree", "npm:1.2.0"],
+            ["string-argv", "npm:0.3.1"],
             ["tsc-watch", "virtual:361a1266ef1f9b1994abdc2e99f40d3c724cbfa0449ec9dec1ab9808082992b00e696abbaec2407c7ae3e5cf811454a4b33a0c099a7cb1f5dcb58572b86184c4#npm:4.2.9"],
             ["tslib", "npm:2.0.1"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
@@ -1069,6 +1071,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/string-argv-npm-0.1.2-d3191098fc-16c89881d6.zip/node_modules/string-argv/",
           "packageDependencies": [
             ["string-argv", "npm:0.1.2"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:0.3.1", {
+          "packageLocation": "./.yarn/cache/string-argv-npm-0.3.1-b4f6cd3d7b-002a690269.zip/node_modules/string-argv/",
+          "packageDependencies": [
+            ["string-argv", "npm:0.3.1"]
           ],
           "linkType": "HARD",
         }]
