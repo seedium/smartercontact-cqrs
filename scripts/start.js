@@ -47,7 +47,11 @@ const run = (service) => {
   process.stdout.setEncoding('utf8');
   process.stdout.on('data', function(data) {
     console.log(`${COLORS.yellow}[${service}]${COLORS.reset} ` + data.toString());
-  });  const exitPromise = new Promise(resolve => process.on('exit', resolve));
+  });
+  process.stderr.on('data', function (data) {
+    console.log(`${COLORS.yellow}[${service}]${COLORS.reset} ` + data.toString());
+  });
+  const exitPromise = new Promise(resolve => process.on('exit', resolve));
 
   return function kill() {
     return Promise.all([killer(process), exitPromise]);
