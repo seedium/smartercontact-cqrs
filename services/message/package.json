@@ -2,5 +2,8 @@
   "name": "message",
   "scripts": {
     "start": "node build/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^14.6.4"
   }
 }

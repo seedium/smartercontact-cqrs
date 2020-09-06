@@ -15,6 +15,8 @@ __metadata:
 "analytics@workspace:services/analytics":
   version: 0.0.0-use.local
   resolution: "analytics@workspace:services/analytics"
+  dependencies:
+    "@types/node": ^14.6.4
   languageName: unknown
   linkType: soft
 
@@ -28,24 +30,32 @@ __metadata:
 "billing@workspace:services/billing":
   version: 0.0.0-use.local
   resolution: "billing@workspace:services/billing"
+  dependencies:
+    "@types/node": ^14.6.4
   languageName: unknown
   linkType: soft
 
 "campaign@workspace:services/campaign":
   version: 0.0.0-use.local
   resolution: "campaign@workspace:services/campaign"
+  dependencies:
+    "@types/node": ^14.6.4
   languageName: unknown
   linkType: soft
 
 "communication@workspace:services/communication":
   version: 0.0.0-use.local
   resolution: "communication@workspace:services/communication"
+  dependencies:
+    "@types/node": ^14.6.4
   languageName: unknown
   linkType: soft
 
 "contact@workspace:services/contact":
   version: 0.0.0-use.local
   resolution: "contact@workspace:services/contact"
+  dependencies:
+    "@types/node": ^14.6.4
   languageName: unknown
   linkType: soft
 
@@ -53,6 +63,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "core@workspace:packages/core"
   dependencies:
+    "@types/node": ^14.6.4
     tslib: ^2.0.1
   languageName: unknown
   linkType: soft
@@ -114,6 +125,8 @@ __metadata:
 "message@workspace:services/message":
   version: 0.0.0-use.local
   resolution: "message@workspace:services/message"
+  dependencies:
+    "@types/node": ^14.6.4
   languageName: unknown
   linkType: soft
 
@@ -266,6 +279,8 @@ typescript@^4.0.2:
 "user@workspace:services/user":
   version: 0.0.0-use.local
   resolution: "user@workspace:services/user"
+  dependencies:
+    "@types/node": ^14.6.4
   languageName: unknown
   linkType: soft
 

@@ -54,6 +54,7 @@ class BuilderManager {
         });
         watch.on('compile_errors', () => {
           console.log(`[${serviceProject}] Compilation error`);
+          console.log(`----------------------------------\n`)
         });
         watch.start('--noClear', '--project', project);
         return watch;

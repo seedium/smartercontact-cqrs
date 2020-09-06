@@ -98,7 +98,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["workspace:services/analytics", {
           "packageLocation": "./services/analytics/",
           "packageDependencies": [
-            ["analytics", "workspace:services/analytics"]
+            ["analytics", "workspace:services/analytics"],
+            ["@types/node", "npm:14.6.4"]
           ],
           "linkType": "SOFT",
         }]
@@ -116,7 +117,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["workspace:services/billing", {
           "packageLocation": "./services/billing/",
           "packageDependencies": [
-            ["billing", "workspace:services/billing"]
+            ["billing", "workspace:services/billing"],
+            ["@types/node", "npm:14.6.4"]
           ],
           "linkType": "SOFT",
         }]
@@ -125,7 +127,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["workspace:services/campaign", {
           "packageLocation": "./services/campaign/",
           "packageDependencies": [
-            ["campaign", "workspace:services/campaign"]
+            ["campaign", "workspace:services/campaign"],
+            ["@types/node", "npm:14.6.4"]
           ],
           "linkType": "SOFT",
         }]
@@ -134,7 +137,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["workspace:services/communication", {
           "packageLocation": "./services/communication/",
           "packageDependencies": [
-            ["communication", "workspace:services/communication"]
+            ["communication", "workspace:services/communication"],
+            ["@types/node", "npm:14.6.4"]
           ],
           "linkType": "SOFT",
         }]
@@ -143,7 +147,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["workspace:services/contact", {
           "packageLocation": "./services/contact/",
           "packageDependencies": [
-            ["contact", "workspace:services/contact"]
+            ["contact", "workspace:services/contact"],
+            ["@types/node", "npm:14.6.4"]
           ],
           "linkType": "SOFT",
         }]
@@ -153,6 +158,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/core/",
           "packageDependencies": [
             ["core", "workspace:packages/core"],
+            ["@types/node", "npm:14.6.4"],
             ["tslib", "npm:2.0.1"]
           ],
           "linkType": "SOFT",
@@ -226,7 +232,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["workspace:services/message", {
           "packageLocation": "./services/message/",
           "packageDependencies": [
-            ["message", "workspace:services/message"]
+            ["message", "workspace:services/message"],
+            ["@types/node", "npm:14.6.4"]
           ],
           "linkType": "SOFT",
         }]
@@ -391,7 +398,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["workspace:services/user", {
           "packageLocation": "./services/user/",
           "packageDependencies": [
-            ["user", "workspace:services/user"]
+            ["user", "workspace:services/user"],
+            ["@types/node", "npm:14.6.4"]
           ],
           "linkType": "SOFT",
         }]
