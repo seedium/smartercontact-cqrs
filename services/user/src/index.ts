@@ -1,15 +1,10 @@
-import * as http from 'http';
-import { Class } from 'core';
+import { App } from 'core';
 
-const hostname = '127.0.0.1';
-const port = 3006;
+const app = new App();
+app.start();
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello, World from the user!\n' + Class.toString());
-});
-
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.server.get('/', async function get() {
+  return {
+    success: true,
+  }
 });

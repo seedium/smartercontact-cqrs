@@ -3,6 +3,7 @@
 .yarn/build-state.yml
 
 services/**/build
+services/**/.env
 
 packages/**/*.d.ts
 packages/**/*.js

@@ -1,9 +1,13 @@
 {
   "name": "contact",
   "scripts": {
-    "start": "node build/index.js"
+    "start": "node -r dotenv/config --enable-source-maps build/index.js"
   },
   "devDependencies": {
     "@types/node": "^14.6.4"
+  },
+  "dependencies": {
+    "core": "workspace:packages/core",
+    "dotenv": "^8.2.0"
   }
 }

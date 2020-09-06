@@ -5,6 +5,10 @@ const { resolve, join } = require('path');
 const TscWatchClient = require('tsc-watch/client');
 const psTree = require('ps-tree');
 
+const COLORS = {
+  reset: '\x1b[0m',
+  yellow: '\x1b[33m',
+}
 const readdir = promisify(fs.readdir);
 
 const packagesProjects = {
@@ -39,10 +43,10 @@ const killer = (child) => {
 }
 
 const run = (service) => {
-  const process = spawn('yarn', ['node', `services/${service}/build/index.js`]);
+  const process = spawn('yarn', ['workspace', service, 'run', 'start']);
   process.stdout.setEncoding('utf8');
   process.stdout.on('data', function(data) {
-    console.log(`[${service}] ` + data.toString());
+    console.log(`${COLORS.yellow}[${service}]${COLORS.reset} ` + data.toString());
   });  const exitPromise = new Promise(resolve => process.on('exit', resolve));
 
   return function kill() {
@@ -67,7 +71,7 @@ class BuilderManager {
       const watch = new TscWatchClient();
       watch.on('success', async () => {
         console.log(`[${packageName}] Successfully built`);
-        this.killServices();
+        await this.killServices();
         await this.startServices();
       });
       watch.on('compile_errors', () => {
@@ -86,9 +90,13 @@ class BuilderManager {
         const project = join(servicesPath, serviceProject);
         const watch = new TscWatchClient();
         watch.on('success', async () => {
+          await this.killService(serviceProject);
           console.log(`[${serviceProject}] Successfully built`);
           const killService = run(serviceProject);
-          this.serviceKillers.push(killService);
+          this.serviceKillers.push({
+            name: serviceProject,
+            killer: killService,
+          });
         });
         watch.on('compile_errors', () => {
           console.log(`[${serviceProject}] Compilation error`);
@@ -98,9 +106,18 @@ class BuilderManager {
         return watch;
       });
   }
-  killServices() {
-    this.serviceKillers.forEach((servicesKiller) => servicesKiller());
+  async killServices() {
+    await Promise.all(
+      this.serviceKillers.map((service) => this.killService(service.name)),
+    );
     this.servicesWatches.forEach((serviceWatch) => serviceWatch.kill());
+  }
+  async killService(serviceName) {
+    const serviceKillerIndex = this.serviceKillers.findIndex((service) => service.name === serviceName);
+    if (serviceKillerIndex !== -1) {
+      const [serviceKiller] = this.serviceKillers.splice(serviceKillerIndex, 1);
+      await serviceKiller.killer();
+    }
   }
 }
 

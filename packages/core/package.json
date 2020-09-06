@@ -2,6 +2,11 @@
   "name": "core",
   "devDependencies": {
     "@types/node": "^14.6.4",
+    "@types/pino": "^6.3.0",
     "tslib": "^2.0.1"
+  },
+  "dependencies": {
+    "fastify": "^3.3.0",
+    "pino": "^6.5.1"
   }
 }
