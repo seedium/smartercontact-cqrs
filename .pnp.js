@@ -78,6 +78,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["@types/node", "npm:14.6.4"],
+            ["ps-tree", "npm:1.2.0"],
             ["tsc-watch", "virtual:361a1266ef1f9b1994abdc2e99f40d3c724cbfa0449ec9dec1ab9808082992b00e696abbaec2407c7ae3e5cf811454a4b33a0c099a7cb1f5dcb58572b86184c4#npm:4.2.9"],
             ["tslib", "npm:2.0.1"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
@@ -301,6 +302,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["smartercontact-cqrs", "workspace:."],
             ["@types/node", "npm:14.6.4"],
+            ["ps-tree", "npm:1.2.0"],
             ["tsc-watch", "virtual:361a1266ef1f9b1994abdc2e99f40d3c724cbfa0449ec9dec1ab9808082992b00e696abbaec2407c7ae3e5cf811454a4b33a0c099a7cb1f5dcb58572b86184c4#npm:4.2.9"],
             ["tslib", "npm:2.0.1"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
@@ -399,7 +401,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./services/user/",
           "packageDependencies": [
             ["user", "workspace:services/user"],
-            ["@types/node", "npm:14.6.4"]
+            ["@types/node", "npm:14.6.4"],
+            ["core", "workspace:packages/core"]
           ],
           "linkType": "SOFT",
         }]

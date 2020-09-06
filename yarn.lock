@@ -185,6 +185,7 @@ __metadata:
   resolution: "smartercontact-cqrs@workspace:."
   dependencies:
     "@types/node": ^14.6.4
+    ps-tree: ^1.2.0
     tsc-watch: ^4.2.9
     tslib: ^2.0.1
     typescript: ^4.0.2
@@ -281,6 +282,7 @@ typescript@^4.0.2:
   resolution: "user@workspace:services/user"
   dependencies:
     "@types/node": ^14.6.4
+    core: "workspace:packages/core"
   languageName: unknown
   linkType: soft
 
