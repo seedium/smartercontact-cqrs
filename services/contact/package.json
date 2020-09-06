@@ -1,3 +1,6 @@
 {
-  "name": "contact"
+  "name": "contact",
+  "scripts": {
+    "start": "node build/index.js"
+  }
 }

@@ -3,3 +3,10 @@
 .yarn/build-state.yml
 
 services/**/build
+
+packages/**/*.d.ts
+packages/**/*.js
+packages/**/*.d.ts.map
+packages/**/*.js.map
+
+tsconfig.tsbuildinfo

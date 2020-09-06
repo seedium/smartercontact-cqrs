@@ -1,3 +1,6 @@
 {
-  "name": "campaign"
+  "name": "campaign",
+  "scripts": {
+    "start": "node build/index.js"
+  }
 }

@@ -5,6 +5,8 @@
     "build": ""
   },
   "devDependencies": {
+    "@types/node": "^14.6.4",
+    "tsc-watch": "^4.2.9",
     "tslib": "^2.0.1",
     "typescript": "^4.0.2"
   },

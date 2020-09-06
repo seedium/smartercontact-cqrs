@@ -1,3 +1,6 @@
 {
-  "name": "communication"
+  "name": "communication",
+  "scripts": {
+    "start": "node build/index.js"
+  }
 }

@@ -23,6 +23,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:."
       },
       {
+        "name": "core",
+        "reference": "workspace:packages/core"
+      },
+      {
         "name": "analytics",
         "reference": "workspace:services/analytics"
       },
@@ -35,8 +39,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:services/campaign"
       },
       {
-        "name": "comminucation",
-        "reference": "workspace:services/comminucation"
+        "name": "communication",
+        "reference": "workspace:services/communication"
       },
       {
         "name": "contact",
@@ -57,8 +61,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["analytics", ["workspace:services/analytics"]],
       ["billing", ["workspace:services/billing"]],
       ["campaign", ["workspace:services/campaign"]],
-      ["comminucation", ["workspace:services/comminucation"]],
+      ["communication", ["workspace:services/communication"]],
       ["contact", ["workspace:services/contact"]],
+      ["core", ["workspace:packages/core"]],
       ["message", ["workspace:services/message"]],
       ["smartercontact-cqrs", ["workspace:."]],
       ["user", ["workspace:services/user"]]
@@ -72,10 +77,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
+            ["@types/node", "npm:14.6.4"],
+            ["tsc-watch", "virtual:361a1266ef1f9b1994abdc2e99f40d3c724cbfa0449ec9dec1ab9808082992b00e696abbaec2407c7ae3e5cf811454a4b33a0c099a7cb1f5dcb58572b86184c4#npm:4.2.9"],
             ["tslib", "npm:2.0.1"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
           ],
           "linkType": "SOFT",
+        }]
+      ]],
+      ["@types/node", [
+        ["npm:14.6.4", {
+          "packageLocation": "./.yarn/cache/@types-node-npm-14.6.4-5ce5afae9a-bff274e362.zip/node_modules/@types/node/",
+          "packageDependencies": [
+            ["@types/node", "npm:14.6.4"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["analytics", [
@@ -85,6 +101,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["analytics", "workspace:services/analytics"]
           ],
           "linkType": "SOFT",
+        }]
+      ]],
+      ["ansi-regex", [
+        ["npm:5.0.0", {
+          "packageLocation": "./.yarn/cache/ansi-regex-npm-5.0.0-9c076068d9-cbd9b5c9db.zip/node_modules/ansi-regex/",
+          "packageDependencies": [
+            ["ansi-regex", "npm:5.0.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["billing", [
@@ -105,11 +130,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT",
         }]
       ]],
-      ["comminucation", [
-        ["workspace:services/comminucation", {
-          "packageLocation": "./services/comminucation/",
+      ["communication", [
+        ["workspace:services/communication", {
+          "packageLocation": "./services/communication/",
           "packageDependencies": [
-            ["comminucation", "workspace:services/comminucation"]
+            ["communication", "workspace:services/communication"]
           ],
           "linkType": "SOFT",
         }]
@@ -123,6 +148,80 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT",
         }]
       ]],
+      ["core", [
+        ["workspace:packages/core", {
+          "packageLocation": "./packages/core/",
+          "packageDependencies": [
+            ["core", "workspace:packages/core"],
+            ["tslib", "npm:2.0.1"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
+      ["cross-spawn", [
+        ["npm:7.0.3", {
+          "packageLocation": "./.yarn/cache/cross-spawn-npm-7.0.3-e4ff3e65b3-51f10036f5.zip/node_modules/cross-spawn/",
+          "packageDependencies": [
+            ["cross-spawn", "npm:7.0.3"],
+            ["path-key", "npm:3.1.1"],
+            ["shebang-command", "npm:2.0.0"],
+            ["which", "npm:2.0.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["duplexer", [
+        ["npm:0.1.2", {
+          "packageLocation": "./.yarn/cache/duplexer-npm-0.1.2-952c810235-5c2ccea7c8.zip/node_modules/duplexer/",
+          "packageDependencies": [
+            ["duplexer", "npm:0.1.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["event-stream", [
+        ["npm:3.3.4", {
+          "packageLocation": "./.yarn/cache/event-stream-npm-3.3.4-5a4db234bf-dd5a563370.zip/node_modules/event-stream/",
+          "packageDependencies": [
+            ["event-stream", "npm:3.3.4"],
+            ["duplexer", "npm:0.1.2"],
+            ["from", "npm:0.1.7"],
+            ["map-stream", "npm:0.1.0"],
+            ["pause-stream", "npm:0.0.11"],
+            ["split", "npm:0.3.3"],
+            ["stream-combiner", "npm:0.0.4"],
+            ["through", "npm:2.3.8"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["from", [
+        ["npm:0.1.7", {
+          "packageLocation": "./.yarn/cache/from-npm-0.1.7-6dcf14a57d-23cc6301f6.zip/node_modules/from/",
+          "packageDependencies": [
+            ["from", "npm:0.1.7"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["isexe", [
+        ["npm:2.0.0", {
+          "packageLocation": "./.yarn/cache/isexe-npm-2.0.0-b58870bd2e-7b437980bb.zip/node_modules/isexe/",
+          "packageDependencies": [
+            ["isexe", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["map-stream", [
+        ["npm:0.1.0", {
+          "packageLocation": "./.yarn/cache/map-stream-npm-0.1.0-e44450fc62-46003aa4a7.zip/node_modules/map-stream/",
+          "packageDependencies": [
+            ["map-stream", "npm:0.1.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["message", [
         ["workspace:services/message", {
           "packageLocation": "./services/message/",
@@ -132,15 +231,142 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT",
         }]
       ]],
+      ["node-cleanup", [
+        ["npm:2.1.2", {
+          "packageLocation": "./.yarn/cache/node-cleanup-npm-2.1.2-adfbc95778-696b6f832d.zip/node_modules/node-cleanup/",
+          "packageDependencies": [
+            ["node-cleanup", "npm:2.1.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["path-key", [
+        ["npm:3.1.1", {
+          "packageLocation": "./.yarn/cache/path-key-npm-3.1.1-0e66ea8321-e44aa3ca9f.zip/node_modules/path-key/",
+          "packageDependencies": [
+            ["path-key", "npm:3.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["pause-stream", [
+        ["npm:0.0.11", {
+          "packageLocation": "./.yarn/cache/pause-stream-npm-0.0.11-d0e142313d-a6bcf306f5.zip/node_modules/pause-stream/",
+          "packageDependencies": [
+            ["pause-stream", "npm:0.0.11"],
+            ["through", "npm:2.3.8"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["ps-tree", [
+        ["npm:1.2.0", {
+          "packageLocation": "./.yarn/cache/ps-tree-npm-1.2.0-3975e95bd6-0dd001ab27.zip/node_modules/ps-tree/",
+          "packageDependencies": [
+            ["ps-tree", "npm:1.2.0"],
+            ["event-stream", "npm:3.3.4"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["shebang-command", [
+        ["npm:2.0.0", {
+          "packageLocation": "./.yarn/cache/shebang-command-npm-2.0.0-eb2b01921d-85aa394d8c.zip/node_modules/shebang-command/",
+          "packageDependencies": [
+            ["shebang-command", "npm:2.0.0"],
+            ["shebang-regex", "npm:3.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["shebang-regex", [
+        ["npm:3.0.0", {
+          "packageLocation": "./.yarn/cache/shebang-regex-npm-3.0.0-899a0cd65e-ea18044ffa.zip/node_modules/shebang-regex/",
+          "packageDependencies": [
+            ["shebang-regex", "npm:3.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["smartercontact-cqrs", [
         ["workspace:.", {
           "packageLocation": "./",
           "packageDependencies": [
             ["smartercontact-cqrs", "workspace:."],
+            ["@types/node", "npm:14.6.4"],
+            ["tsc-watch", "virtual:361a1266ef1f9b1994abdc2e99f40d3c724cbfa0449ec9dec1ab9808082992b00e696abbaec2407c7ae3e5cf811454a4b33a0c099a7cb1f5dcb58572b86184c4#npm:4.2.9"],
             ["tslib", "npm:2.0.1"],
             ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
           ],
           "linkType": "SOFT",
+        }]
+      ]],
+      ["split", [
+        ["npm:0.3.3", {
+          "packageLocation": "./.yarn/cache/split-npm-0.3.3-847dc2ba97-4e20ae69b3.zip/node_modules/split/",
+          "packageDependencies": [
+            ["split", "npm:0.3.3"],
+            ["through", "npm:2.3.8"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["stream-combiner", [
+        ["npm:0.0.4", {
+          "packageLocation": "./.yarn/cache/stream-combiner-npm-0.0.4-0176779791-0c936c1cb4.zip/node_modules/stream-combiner/",
+          "packageDependencies": [
+            ["stream-combiner", "npm:0.0.4"],
+            ["duplexer", "npm:0.1.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["string-argv", [
+        ["npm:0.1.2", {
+          "packageLocation": "./.yarn/cache/string-argv-npm-0.1.2-d3191098fc-16c89881d6.zip/node_modules/string-argv/",
+          "packageDependencies": [
+            ["string-argv", "npm:0.1.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["strip-ansi", [
+        ["npm:6.0.0", {
+          "packageLocation": "./.yarn/cache/strip-ansi-npm-6.0.0-904613e9eb-10568c91ca.zip/node_modules/strip-ansi/",
+          "packageDependencies": [
+            ["strip-ansi", "npm:6.0.0"],
+            ["ansi-regex", "npm:5.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["through", [
+        ["npm:2.3.8", {
+          "packageLocation": "./.yarn/cache/through-npm-2.3.8-df5f72a16e-918d915168.zip/node_modules/through/",
+          "packageDependencies": [
+            ["through", "npm:2.3.8"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["tsc-watch", [
+        ["virtual:361a1266ef1f9b1994abdc2e99f40d3c724cbfa0449ec9dec1ab9808082992b00e696abbaec2407c7ae3e5cf811454a4b33a0c099a7cb1f5dcb58572b86184c4#npm:4.2.9", {
+          "packageLocation": "./.yarn/$$virtual/tsc-watch-virtual-255f8ccbd8/0/cache/tsc-watch-npm-4.2.9-f898a4f291-b1c2a2d295.zip/node_modules/tsc-watch/",
+          "packageDependencies": [
+            ["tsc-watch", "virtual:361a1266ef1f9b1994abdc2e99f40d3c724cbfa0449ec9dec1ab9808082992b00e696abbaec2407c7ae3e5cf811454a4b33a0c099a7cb1f5dcb58572b86184c4#npm:4.2.9"],
+            ["@types/typescript", null],
+            ["cross-spawn", "npm:7.0.3"],
+            ["node-cleanup", "npm:2.1.2"],
+            ["ps-tree", "npm:1.2.0"],
+            ["string-argv", "npm:0.1.2"],
+            ["strip-ansi", "npm:6.0.0"],
+            ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
+          ],
+          "packagePeers": [
+            "@types/typescript",
+            "typescript"
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["tslib", [
@@ -168,6 +394,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["user", "workspace:services/user"]
           ],
           "linkType": "SOFT",
+        }]
+      ]],
+      ["which", [
+        ["npm:2.0.2", {
+          "packageLocation": "./.yarn/cache/which-npm-2.0.2-320ddf72f7-ea9b1db126.zip/node_modules/which/",
+          "packageDependencies": [
+            ["which", "npm:2.0.2"],
+            ["isexe", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]]
     ]

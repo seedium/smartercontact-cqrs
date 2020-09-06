@@ -1,3 +1,6 @@
 {
-  "name": "analytics"
+  "name": "analytics",
+  "scripts": {
+    "start": "node build/index.js"
+  }
 }

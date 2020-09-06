@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": false,
+    "importHelpers": true,
+    "removeComments": false,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2020",
+    "sourceMap": false,
+    "allowJs": false,
+    "strict": true,
+    "strictNullChecks": false,
+    "composite": true
+  },
+  "exclude": ["../node_modules", "./**/*.spec.ts"]
+}

@@ -1,3 +1,6 @@
 {
-  "name": "core"
+  "name": "core",
+  "devDependencies": {
+    "tslib": "^2.0.1"
+  }
 }

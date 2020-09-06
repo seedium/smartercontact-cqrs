@@ -1,3 +1,6 @@
 {
-  "name": "billing"
+  "name": "billing",
+  "scripts": {
+    "start": "node build/index.js"
+  }
 }
