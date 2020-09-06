@@ -1,0 +1,15 @@
+{
+  "name": "smartercontact-cqrs",
+  "scripts": {
+    "start": "node scripts/start.js",
+    "build": ""
+  },
+  "devDependencies": {
+    "tslib": "^2.0.1",
+    "typescript": "^4.0.2"
+  },
+  "workspaces": [
+    "services/**",
+    "packages/**"
+  ]
+}
