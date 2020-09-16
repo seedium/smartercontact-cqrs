@@ -6,7 +6,7 @@ const delay = promisify(setTimeout);
 const bindMongoReplicasCommand = (service) => `docker exec cqrs_${service}_mongo0 mongo --eval "rs.initiate();rs.add('${service}_mongo1');rs.add('${service}_mongo2');conf = rs.conf();conf.members[0].priority=2;rs.reconfig(conf);rs.status()"`;
 
 const prepare = async () => {
-  await run('docker-compose -f docker-compose.yml up -d', {
+  await runCommand('docker-compose -f docker-compose.yml up -d', {
     stdout: true,
   });
   console.log('Waiting 20s before mongo replicas is up');

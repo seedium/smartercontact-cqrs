@@ -28,19 +28,19 @@ services:
   billing_mongo0:
     <<: *mongo
     hostname: billing_mongo0
-    container_name: cqrs_billing_mongo3
+    container_name: cqrs_billing_mongo0
     ports:
       - 27020:27017
   billing_mongo1:
     <<: *mongo
     hostname: billing_mongo1
-    container_name: cqrs_billing_mongo4
+    container_name: cqrs_billing_mongo1
     ports:
       - 27021:27017
   billing_mongo2:
     <<: *mongo
     hostname: billing_mongo2
-    container_name: cqrs_billing_mongo5
+    container_name: cqrs_billing_mongo2
     ports:
       - 27022:27017
   zookeeper:

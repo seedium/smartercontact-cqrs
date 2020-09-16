@@ -1,7 +1,9 @@
-export class GetUsersQuery {
+import { IQuery } from 'core';
+
+export class GetUsersQuery implements IQuery {
   constructor(
-    public readonly limit: number,
-    public readonly startingAfter: string,
-    public readonly endingBefore: string,
+    public readonly limit: number = 20,
+    public readonly startingAfter: string = null,
+    public readonly endingBefore: string = null,
   ) {}
 }

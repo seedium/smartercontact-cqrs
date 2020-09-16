@@ -1,9 +1,10 @@
-import { App, CommandBus, EventPublisher, EventBus } from 'core';
+import { App, CommandBus, EventPublisher, EventBus, QueryBus } from 'core';
 import { commandDb, viewDb } from './lib';
 import { UserRepository } from './repositories';
 import { UserController } from './controllers';
 import { UserCreateCommandHandler } from './commands/handlers';
 import { UserCreatedEventHandler } from './events/handlers';
+import { GetUsersQueryHandler } from './queries/handlers';
 
 const start = async () => {
   const app = new App();
@@ -13,6 +14,7 @@ const start = async () => {
       viewDb.connect(),
     ]);
     const commandBus = new CommandBus();
+    const queryBus = new QueryBus();
     const eventBus = new EventBus();
     const eventPublisher = new EventPublisher(eventBus);
 
@@ -20,10 +22,11 @@ const start = async () => {
     const userRepository = new UserRepository();
 
     // controllers
-    const userController = new UserController(commandBus);
+    const userController = new UserController(commandBus, queryBus);
 
-    await commandBus.registerHandler(new UserCreateCommandHandler(eventPublisher));
+    await commandBus.registerHandler(new UserCreateCommandHandler(eventPublisher, userRepository));
     await eventBus.registerEventHandler('user-user.created', new UserCreatedEventHandler(userRepository));
+    await queryBus.registerQuery(new GetUsersQueryHandler(userRepository));
 
     app.server.log.info('Successfully connected to view and command databases');
 
