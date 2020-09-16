@@ -168,6 +168,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/uuid", [
+        ["npm:8.3.0", {
+          "packageLocation": "./.yarn/cache/@types-uuid-npm-8.3.0-60b441a3d7-620985aed8.zip/node_modules/@types/uuid/",
+          "packageDependencies": [
+            ["@types/uuid", "npm:8.3.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["abstract-logging", [
         ["npm:2.0.0", {
           "packageLocation": "./.yarn/cache/abstract-logging-npm-2.0.0-ce370a0e14-a39757fe94.zip/node_modules/abstract-logging/",
@@ -428,10 +437,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/mongodb", "npm:3.5.27"],
             ["@types/node", "npm:14.6.4"],
             ["@types/pino", "npm:6.3.0"],
+            ["@types/uuid", "npm:8.3.0"],
             ["fastify", "npm:3.3.0"],
+            ["kafkajs", "npm:1.12.0"],
             ["mongodb", "npm:3.6.1"],
             ["pino", "npm:6.5.1"],
-            ["tslib", "npm:2.0.1"]
+            ["tslib", "npm:2.0.1"],
+            ["uuid", "npm:8.3.0"]
           ],
           "linkType": "SOFT",
         }]
@@ -778,6 +790,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["kafkajs", [
+        ["npm:1.12.0", {
+          "packageLocation": "./.yarn/cache/kafkajs-npm-1.12.0-6b96e5f24d-0f098604f2.zip/node_modules/kafkajs/",
+          "packageDependencies": [
+            ["kafkajs", "npm:1.12.0"],
+            ["long", "npm:4.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["leven", [
         ["npm:2.1.0", {
           "packageLocation": "./.yarn/cache/leven-npm-2.1.0-19f0a16606-fcd39dd4d7.zip/node_modules/leven/",
@@ -796,6 +818,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cookie", "npm:0.4.1"],
             ["readable-stream", "npm:3.6.0"],
             ["set-cookie-parser", "npm:2.4.6"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["long", [
+        ["npm:4.0.0", {
+          "packageLocation": "./.yarn/cache/long-npm-4.0.0-ecd96a31ed-9cebc1ee8b.zip/node_modules/long/",
+          "packageDependencies": [
+            ["long", "npm:4.0.0"]
           ],
           "linkType": "HARD",
         }]
@@ -1396,10 +1427,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./services/user/",
           "packageDependencies": [
             ["user", "workspace:services/user"],
+            ["@types/mongodb", "npm:3.5.27"],
             ["@types/node", "npm:14.6.4"],
+            ["@types/uuid", "npm:8.3.0"],
             ["core", "workspace:packages/core"],
             ["dotenv", "npm:8.2.0"],
-            ["tslib", "npm:2.0.1"]
+            ["tslib", "npm:2.0.1"],
+            ["uuid", "npm:8.3.0"]
           ],
           "linkType": "SOFT",
         }]
@@ -1409,6 +1443,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/util-deprecate-npm-1.0.2-e3fe1a219c-73c2b1cf02.zip/node_modules/util-deprecate/",
           "packageDependencies": [
             ["util-deprecate", "npm:1.0.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["uuid", [
+        ["npm:8.3.0", {
+          "packageLocation": "./.yarn/cache/uuid-npm-8.3.0-2f98335399-a2bdb8a3eb.zip/node_modules/uuid/",
+          "packageDependencies": [
+            ["uuid", "npm:8.3.0"]
           ],
           "linkType": "HARD",
         }]

@@ -4,12 +4,14 @@ const { promisify } = require('util');
 const { resolve, join } = require('path');
 const TscWatchClient = require('tsc-watch/client');
 const psTree = require('ps-tree');
+const runCommand = require('../tools/run-command');
 
 const COLORS = {
   reset: '\x1b[0m',
   yellow: '\x1b[33m',
 }
 const readdir = promisify(fs.readdir);
+const delay = promisify(setTimeout);
 
 const packagesProjects = {
   core: 'packages/core',
@@ -126,6 +128,14 @@ class BuilderManager {
 }
 
 const start = async () => {
+  console.log('Starting applications');
+  await runCommand(`docker-compose up -d zookeeper`, {
+    stdout: true,
+  });
+  await delay(5000);
+  await runCommand(`docker-compose up -d`, {
+    stdout: true,
+  });
   const builder = new BuilderManager();
   await builder.start();
 };

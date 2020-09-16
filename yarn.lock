@@ -74,6 +74,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/uuid@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "@types/uuid@npm:8.3.0"
+  checksum: 620985aed8fdb4aed153daca5235f4303457a67a4d181efac0021712eabd9edd7e88895f79730c0e651effde7633b1b61e49a81519ac8d4e75019d2ac9b6412f
+  languageName: node
+  linkType: hard
+
 "abstract-logging@npm:^2.0.0":
   version: 2.0.0
   resolution: "abstract-logging@npm:2.0.0"
@@ -310,10 +317,13 @@ __metadata:
     "@types/mongodb": ^3.5.27
     "@types/node": ^14.6.4
     "@types/pino": ^6.3.0
+    "@types/uuid": ^8.3.0
     fastify: ^3.3.0
+    kafkajs: ^1.12.0
     mongodb: ^3.6.1
     pino: ^6.5.1
     tslib: ^2.0.1
+    uuid: ^8.3.0
   languageName: unknown
   linkType: soft
 
@@ -593,6 +603,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"kafkajs@npm:^1.12.0":
+  version: 1.12.0
+  resolution: "kafkajs@npm:1.12.0"
+  dependencies:
+    long: ^4.0.0
+  checksum: 0f098604f2e34d9fb9beea04aa8a6443fc335865476b000830a2fd0e364bf200dbae27f6ab3b3c029edd5d93008d7a07f2f7bb12687f3632e52468bcffdea2e1
+  languageName: node
+  linkType: hard
+
 "leven@npm:2.1.0":
   version: 2.1.0
   resolution: "leven@npm:2.1.0"
@@ -609,6 +628,13 @@ __metadata:
     readable-stream: ^3.6.0
     set-cookie-parser: ^2.4.1
   checksum: cc0fff22f6b9af91740ae8ba925c7d3039877cf3dbd11ac3a5797bc06e6675e863e70d22c15e9d054eff9651907c8cd824e3ad7ca20e150b42d06940d52a7f55
+  languageName: node
+  linkType: hard
+
+"long@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "long@npm:4.0.0"
+  checksum: 9cebc1ee8b9ea15278c977f61250ac41becdf7216104905f0d198c147ed2a7a090a2d83bb212878d3dc3ccb0199e6428862f848ec4b0ecfeab4dfe24eccf21b3
   languageName: node
   linkType: hard
 
@@ -1149,10 +1175,13 @@ typescript@^4.0.2:
   version: 0.0.0-use.local
   resolution: "user@workspace:services/user"
   dependencies:
+    "@types/mongodb": ^3.5.27
     "@types/node": ^14.6.4
+    "@types/uuid": ^8.3.0
     core: "workspace:packages/core"
     dotenv: ^8.2.0
     tslib: ^2.0.1
+    uuid: ^8.3.0
   languageName: unknown
   linkType: soft
 
@@ -1160,6 +1189,15 @@ typescript@^4.0.2:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 73c2b1cf0210ccac300645384d8443cabbd93194117b2dc1b3bae8d8279ad39aedac857e020c4ea505e96a1045059c7359db3df6a9df0be6b8584166c9d61dc9
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "uuid@npm:8.3.0"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: a2bdb8a3eb80a53506e9657e7e1f70d7600562bf43fa010a645fd1deb7de1686df61c496c6f9826bac4be8db4d1ac1b976dd6fdf3bd083207eec1674507936fb
   languageName: node
   linkType: hard
 

@@ -1,7 +1,9 @@
-import { App } from 'core';
+import { App, CommandBus, EventPublisher, EventBus } from 'core';
 import { commandDb, viewDb } from './lib';
-import { initUser, initEvent } from './models';
+import { UserRepository } from './repositories';
 import { UserController } from './controllers';
+import { UserCreateCommandHandler } from './commands/handlers';
+import { UserCreatedEventHandler } from './events/handlers';
 
 const start = async () => {
   const app = new App();
@@ -10,11 +12,23 @@ const start = async () => {
       commandDb.connect(),
       viewDb.connect(),
     ]);
-    app.server.log.info('Successfully connected to view and command databases');
-    initUser();
-    initEvent();
+    const commandBus = new CommandBus();
+    const eventBus = new EventBus();
+    const eventPublisher = new EventPublisher(eventBus);
 
-    app.server.get('/', UserController.getAll);
+    // repositories
+    const userRepository = new UserRepository();
+
+    // controllers
+    const userController = new UserController(commandBus);
+
+    await commandBus.registerHandler(new UserCreateCommandHandler(eventPublisher));
+    await eventBus.registerEventHandler('user-user.created', new UserCreatedEventHandler(userRepository));
+
+    app.server.log.info('Successfully connected to view and command databases');
+
+    app.server.get('/users', userController.getAll.bind(userController));
+    app.server.post('/users', userController.create.bind(userController));
 
     await app.start();
   } catch (err) {
@@ -23,4 +37,3 @@ const start = async () => {
   }
 };
 start();
-
