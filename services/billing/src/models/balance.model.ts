@@ -2,7 +2,7 @@ import { Collection } from 'mongodb';
 import { AggregateRoot } from 'core';
 import { v4 } from 'uuid';
 import { commandDb } from '../lib';
-import { BalanceCreatedEvent, BalanceDeletedEvent } from '../events/impl';
+import { BalanceCreatedEvent, BalanceDeletedEvent } from '../events/billing/impl';
 import { BalanceModel as IBalance } from '../interfaces';
 import { createBalanceId } from '../helpers/create-balance-id';
 

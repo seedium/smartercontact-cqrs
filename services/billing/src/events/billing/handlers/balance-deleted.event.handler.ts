@@ -1,6 +1,6 @@
 import { IEventHandler } from 'core';
 import { BalanceDeletedEvent } from '../impl';
-import { BalanceRepository } from '../../repositories';
+import { BalanceRepository } from '../../../repositories';
 
 export class BalanceDeletedEventHandler implements IEventHandler {
   event = BalanceDeletedEvent;

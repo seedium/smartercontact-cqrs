@@ -1,5 +1,5 @@
 import { IEvent } from 'core';
-import { BalanceModel as IBalance } from '../../interfaces';
+import { BalanceModel as IBalance } from '../../../interfaces';
 
 export class BalanceDeletedEvent implements IEvent {
   public static event = 'billing.balance.deleted';

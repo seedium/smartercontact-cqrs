@@ -1,6 +1,6 @@
 import { UserCreatedEvent } from '../impl';
 import { EventPublisher, IEventHandler } from 'core';
-import { Balance } from '../../models';
+import { Balance } from '../../../models';
 
 export class UserCreatedEventHandler implements IEventHandler {
   public event = UserCreatedEvent;

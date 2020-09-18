@@ -3,7 +3,8 @@ import { commandDb, viewDb } from './lib';
 import { BalanceController, CardController } from './controllers';
 import { BalanceRepository, CardRepository } from './repositories';
 import { ListCardsQueryHandler, RetrieveBalanceQueryHandler } from './queries/handlers';
-import { UserCreatedEventHandler, BalanceCreatedEventHandler, UserDeletedEventHandler, BalanceDeletedEventHandler } from './events/handlers';
+import { BalanceCreatedEventHandler, BalanceDeletedEventHandler } from './events/billing/handlers';
+import { UserCreatedEventHandler, UserDeletedEventHandler } from './events/user/handlers';
 
 const start = async () => {
   const app = new App();
