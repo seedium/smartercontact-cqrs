@@ -6,3 +6,4 @@ export * from './serializable';
 export * from './type';
 export * from './query.interface';
 export * from './query-handler.interface';
+export * from './event-store.interface';

@@ -1,37 +1,27 @@
-import { Collection } from 'mongodb';
-import { AggregateRoot } from 'core';
-import { v4 } from 'uuid';
+import { AggregateRoot, MongoEventStore } from 'core';
 import { commandDb } from '../lib';
 import { UserCreatedEvent, UserDeletedEvent } from '../events/impl';
 import { UserModel } from '../interfaces/models';
 import { createUserId } from '../helpers/create-user-id';
 
 export class User extends AggregateRoot {
-  private readonly _id: string;
-  private _collection: Collection;
-  public init() {
-    this._collection = commandDb.db('cqrs_command').collection('events');
-  }
-  constructor(public readonly user: UserModel) {
+  public readonly user: UserModel
+  constructor(user: Partial<UserModel>) {
     super();
-    this._id = v4();
-    this.init();
+    const collection = commandDb.db('cqrs_command').collection('events');
+    this._eventStore = new MongoEventStore(collection);
+    if (!user.id) {
+      user.id = createUserId();
+    }
+    this.user = user as UserModel;
+    this._aggregateId = this.user.id;
+    this._aggregateVersion = 1;
   }
-  public async create() {
-    this.user.id = createUserId();
-    await this._collection.insertOne({
-      aggregateId: this._id,
-      aggregateVersion: 1,
-      payload: this.user,
-    });
+  public async create(): Promise<User> {
     await this.apply(new UserCreatedEvent(this.user));
+    return this;
   }
-  public async delete() {
-    await this._collection.insertOne({
-      aggregateId: this._id,
-      aggregateVersion: 1,
-      payload: this.user,
-    });
+  public async delete(): Promise<void> {
     await this.apply(new UserDeletedEvent(this.user));
   }
 }
