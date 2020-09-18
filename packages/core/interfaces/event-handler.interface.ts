@@ -3,5 +3,5 @@ import { Type } from './type';
 
 export interface IEventHandler<T = unknown> {
   event: Type<IEvent>;
-  handle(...args: unknown[]): Promise<unknown> | unknown;
+  handle(event: IEvent): Promise<unknown> | unknown;
 }

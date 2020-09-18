@@ -289,10 +289,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./services/billing/",
           "packageDependencies": [
             ["billing", "workspace:services/billing"],
+            ["@types/mongodb", "npm:3.5.27"],
             ["@types/node", "npm:14.6.4"],
+            ["@types/uuid", "npm:8.3.0"],
             ["core", "workspace:packages/core"],
             ["dotenv", "npm:8.2.0"],
-            ["tslib", "npm:2.0.1"]
+            ["mongodb", "npm:3.6.2"],
+            ["tslib", "npm:2.0.1"],
+            ["uuid", "npm:8.3.0"]
           ],
           "linkType": "SOFT",
         }]
@@ -867,6 +871,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/mongodb-npm-3.6.1-102401c37b-0274e9f207.zip/node_modules/mongodb/",
           "packageDependencies": [
             ["mongodb", "npm:3.6.1"],
+            ["bl", "npm:2.2.1"],
+            ["bson", "npm:1.1.5"],
+            ["denque", "npm:1.4.1"],
+            ["require_optional", "npm:1.0.1"],
+            ["safe-buffer", "npm:5.2.1"],
+            ["saslprep", "npm:1.0.3"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:3.6.2", {
+          "packageLocation": "./.yarn/cache/mongodb-npm-3.6.2-193de3f48f-4cec566714.zip/node_modules/mongodb/",
+          "packageDependencies": [
+            ["mongodb", "npm:3.6.2"],
             ["bl", "npm:2.2.1"],
             ["bson", "npm:1.1.5"],
             ["denque", "npm:1.4.1"],

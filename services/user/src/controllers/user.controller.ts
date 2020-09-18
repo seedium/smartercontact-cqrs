@@ -1,5 +1,5 @@
 import { CommandBus, QueryBus } from 'core';
-import { UserCreateCommand } from '../commands/impl';
+import { UserCreateCommand, UserDeleteCommand } from '../commands/impl';
 import { GetUsersQuery } from '../queries/impl';
 
 export class UserController {
@@ -18,5 +18,11 @@ export class UserController {
   public async create(req) {
     await this._commandBus.execute(new UserCreateCommand(req.body));
     return { success: true };
+  }
+  public async delete(req) {
+    await this._commandBus.execute(new UserDeleteCommand(req.params.idUser));
+    return {
+      success: true,
+    };
   }
 }

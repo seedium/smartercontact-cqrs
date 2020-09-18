@@ -179,14 +179,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "billing@workspace:services/billing"
   dependencies:
+    "@types/mongodb": ^3.5.27
     "@types/node": ^14.6.4
+    "@types/uuid": ^8.3.0
     core: "workspace:packages/core"
     dotenv: ^8.2.0
+    mongodb: ^3.6.2
     tslib: ^2.0.1
+    uuid: ^8.3.0
   languageName: unknown
   linkType: soft
 
-"bl@npm:^2.2.0":
+"bl@npm:^2.2.0, bl@npm:^2.2.1":
   version: 2.2.1
   resolution: "bl@npm:2.2.1"
   dependencies:
@@ -677,6 +681,23 @@ __metadata:
     saslprep:
       optional: true
   checksum: 0274e9f20716691abdfde351a2266394ac3ef1f4fa91c6649dc495cf2a3a2cd36947e31e807457b516ee193eb618ced3597c340041c0c2f78acc0f5ea6089afb
+  languageName: node
+  linkType: hard
+
+"mongodb@npm:^3.6.2":
+  version: 3.6.2
+  resolution: "mongodb@npm:3.6.2"
+  dependencies:
+    bl: ^2.2.1
+    bson: ^1.1.4
+    denque: ^1.4.1
+    require_optional: ^1.0.1
+    safe-buffer: ^5.1.2
+    saslprep: ^1.0.0
+  dependenciesMeta:
+    saslprep:
+      optional: true
+  checksum: 4cec5667142ec2df76497b670c2dd4e2a6314e69c7d619898b48d96d6c7c2f7ae4d7a09ca5b2b0457e00160bb6e370c001e3e330836fe17e0633a736e3409f89
   languageName: node
   linkType: hard
 

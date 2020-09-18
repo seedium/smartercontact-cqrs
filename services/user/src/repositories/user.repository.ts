@@ -13,7 +13,12 @@ export class UserRepository {
     return response.ops[0];
   }
   public async retrieve(idUser: string): Promise<UserModel> {
-    return this._collection.findOne({ _id: idUser });
+    return this._collection.findOne({ id: idUser });
+  }
+  public async delete(idUser: string): Promise<void> {
+    await this._collection.deleteOne({
+      id: idUser,
+    });
   }
   public async list(options: any): Promise<UserModel[]> {
     return this._collection.find({}, {
@@ -21,7 +26,7 @@ export class UserRepository {
     }).toArray();
   }
   public async exists(idUser: string): Promise<boolean> {
-    const user = this._collection.findOne({ _id: idUser });
+    const user = this._collection.findOne({ id: idUser });
 
     return !!user;
   }
