@@ -28,10 +28,15 @@ const start = async () => {
 
     queryBus.registerQuery(new ListCardsQueryHandler(cardRepository));
     queryBus.registerQuery(new RetrieveBalanceQueryHandler(balanceRepository));
-    await eventBus.registerEventHandler('billing-user.created', new UserCreatedEventHandler(eventPublisher));
-    await eventBus.registerEventHandler('billing-user.deleted', new UserDeletedEventHandler(eventPublisher, balanceRepository));
-    await eventBus.registerEventHandler('billing-balance.created', new BalanceCreatedEventHandler(balanceRepository))
-    await eventBus.registerEventHandler('billing-balance.deleted', new BalanceDeletedEventHandler(balanceRepository));
+    await Promise.all([
+      new UserCreatedEventHandler(eventPublisher),
+      new UserDeletedEventHandler(eventPublisher, balanceRepository),
+      new BalanceCreatedEventHandler(balanceRepository),
+      new BalanceDeletedEventHandler(balanceRepository)
+    ].map(
+      (event) =>
+        eventBus.registerEventHandler(`billing.${event.event.event}`, event)),
+    );
 
     app.server.get('/users/:idUser/cards', cardController.list.bind(cardController));
     app.server.get('/users/:idUser/balance', balanceController.getBalance.bind(balanceController));

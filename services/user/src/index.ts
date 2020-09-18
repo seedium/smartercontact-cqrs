@@ -29,10 +29,13 @@ const start = async () => {
     commandBus.registerHandler(new UserCreateCommandHandler(eventPublisher, userRepository));
     commandBus.registerHandler(new UserDeleteCommandHandler(eventPublisher, userRepository));
     queryBus.registerQuery(new GetUsersQueryHandler(userRepository));
-    const userCreatedEventHandler = new UserCreatedEventHandler(userRepository);
-    const userDeletedEventHandler = new UserDeletedEventHandler(userRepository);
-    await eventBus.registerEventHandler(`user-${userCreatedEventHandler.event.event}`, userCreatedEventHandler);
-    await eventBus.registerEventHandler(`user-${userDeletedEventHandler.event.event}`, userDeletedEventHandler);
+    await Promise.all([
+      new UserCreatedEventHandler(userRepository),
+      new UserDeletedEventHandler(userRepository),
+    ].map(
+      (event) =>
+        eventBus.registerEventHandler(`user.${event.event.event}`, event)),
+    )
 
     app.server.get('/users', userController.getAll.bind(userController));
     app.server.post('/users', userController.create.bind(userController));

@@ -1,6 +1,5 @@
 import { Collection } from 'mongodb';
 import { viewDb } from '../lib';
-import { User } from '../models';
 import { UserModel } from '../interfaces/models';
 
 export class UserRepository {
@@ -8,7 +7,7 @@ export class UserRepository {
   constructor() {
     this._collection = viewDb.db('cqrs_view').collection('users');
   }
-  public async create(user: User): Promise<UserModel> {
+  public async create(user: UserModel): Promise<UserModel> {
     const response = await this._collection.insertOne(user);
     return response.ops[0];
   }

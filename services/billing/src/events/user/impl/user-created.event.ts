@@ -1,7 +1,7 @@
 import { IEvent } from 'core';
 
 export class UserCreatedEvent implements IEvent {
-  public static event = 'user.created';
+  public static event = 'user.user-created';
   public event: string;
   constructor(public readonly user: any) {
     this.event = UserCreatedEvent.event;
