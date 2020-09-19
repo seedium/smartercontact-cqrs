@@ -5,7 +5,4 @@ export class UserDeleteCommand extends Command {
   constructor(public readonly idUser: string) {
     super();
   }
-  public toJson(): string {
-    return JSON.stringify(this.idUser);
-  }
 }

@@ -5,6 +5,7 @@ import { BalanceRepository, CardRepository } from './repositories';
 import { ListCardsQueryHandler, RetrieveBalanceQueryHandler } from './queries/handlers';
 import { BalanceCreatedEventHandler, BalanceDeletedEventHandler } from './events/billing/handlers';
 import { UserCreatedEventHandler, UserDeletedEventHandler } from './events/user/handlers';
+import { BalanceMapper, CardMapper } from './mappers';
 
 const start = async () => {
   const app = new App();
@@ -17,10 +18,12 @@ const start = async () => {
     const queryBus = new QueryBus();
     const eventBus = new EventBus();
     const eventPublisher = new EventPublisher(eventBus);
+    const balanceMapper = new BalanceMapper();
+    const cardMapper = new CardMapper();
 
     // repositories
-    const balanceRepository = new BalanceRepository();
-    const cardRepository = new CardRepository();
+    const balanceRepository = new BalanceRepository(balanceMapper);
+    const cardRepository = new CardRepository(cardMapper);
 
     // controllers
     const balanceController = new BalanceController(queryBus);

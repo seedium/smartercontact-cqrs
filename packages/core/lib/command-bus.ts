@@ -1,23 +1,22 @@
 import { ICommand, ICommandHandler, Type } from '../interfaces';
 
 export class CommandBus {
-  private readonly _map = new Map<string, ICommandHandler[]>();
-  public registerHandler(handler: ICommandHandler) {
-    const commandName = this.getCommandName(handler.command);
-    let handlers = this._map.get(commandName);
-    if (!handlers) {
-      handlers = [];
+  private readonly _map = new Map<string, ICommandHandler>();
+  public registerHandler(commandHandler: ICommandHandler) {
+    const commandName = this.getCommandName(commandHandler.command);
+    let handler = this._map.get(commandName);
+    if (handler) {
+      console.log(`You will overwrite ${commandName}`);
     }
-    handlers.push(handler);
-    this._map.set(commandName, handlers);
+    this._map.set(commandName, commandHandler);
   }
-  public async execute(command: ICommand) {
+  public async execute<T = unknown>(command: ICommand): Promise<T> {
     const commandName = this.getCommandName(command);
-    const handlers = this._map.get(commandName);
-    if (!handlers) {
+    const handler = this._map.get(commandName);
+    if (!handler) {
       throw new Error(`${commandName} doesn't have any handlers`);
     }
-    await Promise.all(handlers.map((handler) => handler.execute(command)));
+    return handler.execute(command) as T;
   }
   protected getCommandName(command: Type<ICommand> | ICommand): string {
     if (command instanceof Function) {

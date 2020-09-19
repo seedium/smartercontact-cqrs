@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "billing/entities/balance.entity.proto";
+
+message BalanceCreatedEvent {
+  Balance balance = 1;
+}

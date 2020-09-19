@@ -6,6 +6,6 @@ export class BalanceDeletedEventHandler implements IEventHandler {
   event = BalanceDeletedEvent;
   constructor(private readonly _balanceRepository: BalanceRepository) {}
   public async handle(event: BalanceDeletedEvent) {
-    await this._balanceRepository.delete(event.balance.id);
+    await this._balanceRepository.delete(event.balance.getId());
   }
 }

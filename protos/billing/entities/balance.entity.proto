@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message Balance {
+  string id = 1;
+  string user = 2;
+  string currency = 3;
+  int64 amount = 4;
+  int64 created = 5;
+}

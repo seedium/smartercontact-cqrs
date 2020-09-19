@@ -4,3 +4,4 @@ export * from './aggregation';
 export * from './event-publisher';
 export * from './command';
 export * from './helpers';
+export * from './data-mapper';

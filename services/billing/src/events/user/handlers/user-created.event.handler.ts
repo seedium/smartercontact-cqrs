@@ -1,5 +1,6 @@
-import { UserCreatedEvent } from '../impl';
 import { EventPublisher, IEventHandler } from 'core';
+import { Balance as BalanceProto } from 'protos/billing/entities/balance.entity_pb';
+import { UserCreatedEvent } from '../impl';
 import { Balance } from '../../../models';
 
 export class UserCreatedEventHandler implements IEventHandler {
@@ -8,13 +9,13 @@ export class UserCreatedEventHandler implements IEventHandler {
     private readonly _eventPublisher: EventPublisher,
   ) {}
   public async handle(event: UserCreatedEvent) {
+    const balanceDto = new BalanceProto();
+    balanceDto.setUser(event.user.getId());
+    balanceDto.setAmount(0);
+    balanceDto.setCurrency('usd');
+    balanceDto.setCreated(Date.now());
     const balance: Balance = this._eventPublisher.mergeObjectContext(
-      new Balance({
-        user: event.user.id,
-        currency: 'usd',
-        amount: 0,
-        created: Date.now(),
-      }),
+      new Balance(balanceDto),
     );
     await balance.create();
   }

@@ -10,9 +10,9 @@ export class UserDeletedEventHandler implements IEventHandler {
     private readonly _balanceRepository: BalanceRepository,
   ) {}
   public async handle(event: UserDeletedEvent) {
-    const balance = await this._balanceRepository.retrieveByUser(event.user.id);
+    const balance = await this._balanceRepository.retrieveByUser(event.user.getId());
     if (!balance) {
-      throw new Error(`Balance for user "${event.user.id}" doesn't exists`);
+      throw new Error(`Balance for user "${event.user.getId()}" doesn't exists`);
     }
     const balanceAggregate: Balance = this._eventPublisher.mergeObjectContext(
       new Balance(balance),

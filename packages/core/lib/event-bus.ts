@@ -10,13 +10,12 @@ export class EventBus {
     const consumer = kafka.consumer({ groupId });
     await consumer.connect();
     await consumer.subscribe({
-      /* @ts-ignore */
       topic: eventHandler.event.event,
     });
     await consumer.run({
       eachMessage: async ({ message }) => {
         await eventHandler.handle(
-          new eventHandler.event(JSON.parse(message.value.toString())),
+          eventHandler.event.fromProto(message.value),
         );
       },
     });
@@ -25,7 +24,7 @@ export class EventBus {
     await this._producer.send({
       topic: event.event,
       messages: [{
-        value: event.toJson(),
+        value: Buffer.from(event.toProto()),
       }],
     });
   }

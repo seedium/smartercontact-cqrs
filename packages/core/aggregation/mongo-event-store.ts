@@ -9,6 +9,7 @@ export class MongoEventStore implements IEventStore {
       aggregateVersion,
       event: event.constructor.name,
       topic: event.event,
+      created: Date.now(),
       payload: JSON.parse(event.toJson()),
     });
   }

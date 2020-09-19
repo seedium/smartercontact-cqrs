@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "user/entities/user.entity.proto";
+
+message UserCreatedEvent {
+   User user = 1;
+}

@@ -5,6 +5,7 @@ import { UserController } from './controllers';
 import { UserCreateCommandHandler, UserDeleteCommandHandler } from './commands/handlers';
 import { UserCreatedEventHandler, UserDeletedEventHandler } from './events/handlers';
 import { GetUsersQueryHandler } from './queries/handlers';
+import { UserMapper } from './mappers';
 
 const start = async () => {
   const app = new App();
@@ -19,12 +20,13 @@ const start = async () => {
     const queryBus = new QueryBus();
     const eventBus = new EventBus();
     const eventPublisher = new EventPublisher(eventBus);
+    const userMapper = new UserMapper();
 
     // repositories
-    const userRepository = new UserRepository();
+    const userRepository = new UserRepository(userMapper);
 
     // controllers
-    const userController = new UserController(commandBus, queryBus);
+    const userController = new UserController(commandBus, queryBus, userMapper);
 
     commandBus.registerHandler(new UserCreateCommandHandler(eventPublisher, userRepository));
     commandBus.registerHandler(new UserDeleteCommandHandler(eventPublisher, userRepository));

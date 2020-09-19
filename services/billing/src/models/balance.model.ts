@@ -1,23 +1,21 @@
 import { AggregateRoot, MongoEventStore } from 'core';
 import { commandDb } from '../lib';
 import { BalanceCreatedEvent, BalanceDeletedEvent } from '../events/billing/impl';
-import { BalanceModel as IBalance } from '../interfaces';
+import { Balance as BalanceProto } from 'protos/billing/entities/balance.entity_pb';
 import { createBalanceId } from '../helpers/create-balance-id';
 
 export class Balance extends AggregateRoot {
-  public readonly balance: IBalance;
-  constructor(balance: Partial<IBalance>) {
+  constructor(public readonly balance: BalanceProto) {
     super();
     const collection = commandDb.db('cqrs_command').collection('events');
     this._eventStore = new MongoEventStore(collection);
-    if (!balance.id) {
-      balance.id = createBalanceId();
-    }
-    this.balance = balance as IBalance;
-    this._aggregateId = this.balance.id;
+    this._aggregateId = this.balance.getId();
     this._aggregateVersion = 1;
   }
   public async create(): Promise<Balance> {
+    const idBalance = createBalanceId();
+    this._aggregateId = idBalance;
+    this.balance.setId(idBalance);
     await this.apply(new BalanceCreatedEvent(this.balance));
     return this;
   }

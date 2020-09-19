@@ -1,6 +1,4 @@
-import { Serializable } from './serializable';
-
-export interface ICommand extends Serializable {
+export interface ICommand {
   command: string;
   id: string;
 }

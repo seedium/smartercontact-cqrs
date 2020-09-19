@@ -1,7 +1,7 @@
 import { ICommand } from './command.interface';
 import { Type } from './type';
 
-export interface ICommandHandler {
+export interface ICommandHandler<T = unknown> {
   command: Type<ICommand>;
-  execute(...args: unknown[]): Promise<unknown> | unknown;
+  execute(...args: unknown[]): Promise<T> | T;
 }

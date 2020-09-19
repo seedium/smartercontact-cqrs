@@ -8,6 +8,4 @@ export abstract class Command implements ICommand {
   protected constructor() {
     this.id = v4();
   }
-
-  public abstract toJson(): string;
 }

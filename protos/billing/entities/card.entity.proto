@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message Card {
+  string id = 1;
+  string user = 2;
+  string card_number = 3;
+  string card_exp = 4;
+  int32 card_cvc = 5;
+}

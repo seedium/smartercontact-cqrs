@@ -27,6 +27,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/core"
       },
       {
+        "name": "protos",
+        "reference": "workspace:packages/protos"
+      },
+      {
         "name": "analytics",
         "reference": "workspace:services/analytics"
       },
@@ -65,6 +69,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["contact", ["workspace:services/contact"]],
       ["core", ["workspace:packages/core"]],
       ["message", ["workspace:services/message"]],
+      ["protos", ["workspace:packages/protos"]],
       ["smartercontact-cqrs", ["workspace:."]],
       ["user", ["workspace:services/user"]]
     ],
@@ -81,9 +86,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pino-pretty", "npm:4.2.1"],
             ["ps-tree", "npm:1.2.0"],
             ["string-argv", "npm:0.3.1"],
+            ["ts-protoc-gen", "npm:0.13.0"],
             ["tsc-watch", "virtual:361a1266ef1f9b1994abdc2e99f40d3c724cbfa0449ec9dec1ab9808082992b00e696abbaec2407c7ae3e5cf811454a4b33a0c099a7cb1f5dcb58572b86184c4#npm:4.2.9"],
             ["tslib", "npm:2.0.1"],
-            ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5b02a2"]
           ],
           "linkType": "SOFT",
         }]
@@ -295,6 +301,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["core", "workspace:packages/core"],
             ["dotenv", "npm:8.2.0"],
             ["mongodb", "npm:3.6.2"],
+            ["protos", "workspace:packages/protos"],
             ["tslib", "npm:2.0.1"],
             ["uuid", "npm:8.3.0"]
           ],
@@ -715,6 +722,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["google-protobuf", [
+        ["npm:3.13.0", {
+          "packageLocation": "./.yarn/cache/google-protobuf-npm-3.13.0-245231a363-044c272569.zip/node_modules/google-protobuf/",
+          "packageDependencies": [
+            ["google-protobuf", "npm:3.13.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["has-flag", [
         ["npm:3.0.0", {
           "packageLocation": "./.yarn/cache/has-flag-npm-3.0.0-16ac11fe05-63aade480d.zip/node_modules/has-flag/",
@@ -1003,6 +1019,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["protos", [
+        ["workspace:packages/protos", {
+          "packageLocation": "./packages/protos/",
+          "packageDependencies": [
+            ["protos", "workspace:packages/protos"],
+            ["google-protobuf", "npm:3.13.0"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
       ["proxy-addr", [
         ["npm:2.0.6", {
           "packageLocation": "./.yarn/cache/proxy-addr-npm-2.0.6-8fafed6ca5-a7dcfd7025.zip/node_modules/proxy-addr/",
@@ -1235,9 +1261,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pino-pretty", "npm:4.2.1"],
             ["ps-tree", "npm:1.2.0"],
             ["string-argv", "npm:0.3.1"],
+            ["ts-protoc-gen", "npm:0.13.0"],
             ["tsc-watch", "virtual:361a1266ef1f9b1994abdc2e99f40d3c724cbfa0449ec9dec1ab9808082992b00e696abbaec2407c7ae3e5cf811454a4b33a0c099a7cb1f5dcb58572b86184c4#npm:4.2.9"],
             ["tslib", "npm:2.0.1"],
-            ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5b02a2"]
           ],
           "linkType": "SOFT",
         }]
@@ -1391,6 +1418,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["ts-protoc-gen", [
+        ["npm:0.13.0", {
+          "packageLocation": "./.yarn/unplugged/ts-protoc-gen-npm-0.13.0-7b51baa0a1/node_modules/ts-protoc-gen/",
+          "packageDependencies": [
+            ["ts-protoc-gen", "npm:0.13.0"],
+            ["google-protobuf", "npm:3.13.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["tsc-watch", [
         ["virtual:361a1266ef1f9b1994abdc2e99f40d3c724cbfa0449ec9dec1ab9808082992b00e696abbaec2407c7ae3e5cf811454a4b33a0c099a7cb1f5dcb58572b86184c4#npm:4.2.9", {
           "packageLocation": "./.yarn/$$virtual/tsc-watch-virtual-255f8ccbd8/0/cache/tsc-watch-npm-4.2.9-f898a4f291-b1c2a2d295.zip/node_modules/tsc-watch/",
@@ -1402,7 +1439,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ps-tree", "npm:1.2.0"],
             ["string-argv", "npm:0.1.2"],
             ["strip-ansi", "npm:6.0.0"],
-            ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5b02a2"]
           ],
           "packagePeers": [
             "@types/typescript",
@@ -1421,10 +1458,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["typescript", [
-        ["patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2", {
-          "packageLocation": "./.yarn/cache/typescript-patch-edef266e49-b8b689ef99.zip/node_modules/typescript/",
+        ["patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5b02a2", {
+          "packageLocation": "./.yarn/cache/typescript-patch-b8e40b0a95-72db87d09f.zip/node_modules/typescript/",
           "packageDependencies": [
-            ["typescript", "patch:typescript@npm%3A4.0.2#builtin<compat/typescript>::version=4.0.2&hash=5b02a2"]
+            ["typescript", "patch:typescript@npm%3A4.0.3#builtin<compat/typescript>::version=4.0.3&hash=5b02a2"]
           ],
           "linkType": "HARD",
         }]
@@ -1449,6 +1486,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/uuid", "npm:8.3.0"],
             ["core", "workspace:packages/core"],
             ["dotenv", "npm:8.2.0"],
+            ["protos", "workspace:packages/protos"],
             ["tslib", "npm:2.0.1"],
             ["uuid", "npm:8.3.0"]
           ],
