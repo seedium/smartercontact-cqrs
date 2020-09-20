@@ -15,6 +15,7 @@ export class UserController {
       new GetUsersQuery(req.query.limit, req.query.startingAfter, req.query.endingBefore),
     );
     return {
+      has_more: false,
       data: this._userMapper.toArray(users),
     };
   }

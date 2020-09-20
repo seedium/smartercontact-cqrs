@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "billing/entities/card.entity.proto";
+
+message CardCreatedEvent {
+  Card card = 1;
+}

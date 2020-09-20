@@ -3,9 +3,10 @@ import { commandDb, viewDb } from './lib';
 import { BalanceController, CardController } from './controllers';
 import { BalanceRepository, CardRepository } from './repositories';
 import { ListCardsQueryHandler, RetrieveBalanceQueryHandler } from './queries/handlers';
-import { BalanceCreatedEventHandler, BalanceDeletedEventHandler } from './events/billing/handlers';
+import { BalanceCreatedEventHandler, BalanceDeletedEventHandler, CardCreatedEventHandler } from './events/billing/handlers';
 import { UserCreatedEventHandler, UserDeletedEventHandler } from './events/user/handlers';
 import { BalanceMapper, CardMapper } from './mappers';
+import { CreateUserCardCommandHandler } from './commands/handlers';
 
 const start = async () => {
   const app = new App();
@@ -26,22 +27,25 @@ const start = async () => {
     const cardRepository = new CardRepository(cardMapper);
 
     // controllers
-    const balanceController = new BalanceController(queryBus);
-    const cardController = new CardController(queryBus);
+    const balanceController = new BalanceController(queryBus, balanceMapper);
+    const cardController = new CardController(commandBus, queryBus, cardMapper);
 
     queryBus.registerQuery(new ListCardsQueryHandler(cardRepository));
     queryBus.registerQuery(new RetrieveBalanceQueryHandler(balanceRepository));
+    commandBus.registerHandler(new CreateUserCardCommandHandler(eventPublisher, cardRepository));
     await Promise.all([
       new UserCreatedEventHandler(eventPublisher),
       new UserDeletedEventHandler(eventPublisher, balanceRepository),
       new BalanceCreatedEventHandler(balanceRepository),
-      new BalanceDeletedEventHandler(balanceRepository)
+      new BalanceDeletedEventHandler(balanceRepository),
+      new CardCreatedEventHandler(cardRepository),
     ].map(
       (event) =>
         eventBus.registerEventHandler(`billing.${event.event.event}`, event)),
     );
 
     app.server.get('/users/:idUser/cards', cardController.list.bind(cardController));
+    app.server.post('/users/:idUser/cards', cardController.create.bind(cardController));
     app.server.get('/users/:idUser/balance', balanceController.getBalance.bind(balanceController));
 
     await app.start();

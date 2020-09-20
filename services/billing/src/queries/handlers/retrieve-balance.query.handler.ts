@@ -7,6 +7,6 @@ export class RetrieveBalanceQueryHandler implements IQueryHandler {
   query = RetrieveBalanceQuery;
   constructor(private readonly _balanceRepository: BalanceRepository) {}
   public async execute(query: RetrieveBalanceQuery): Promise<Balance> {
-    return this._balanceRepository.retrieve(query.idUser);
+    return this._balanceRepository.retrieveByUser(query.idUser);
   }
 }
