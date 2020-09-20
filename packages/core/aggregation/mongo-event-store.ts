@@ -1,9 +1,9 @@
 import { Collection } from 'mongodb';
-import { IEvent, IEventStore } from '../interfaces';
+import { IEventPublisher, IEventStore } from '../interfaces';
 
 export class MongoEventStore implements IEventStore {
   constructor(private readonly _collection: Collection) {}
-  public commit(aggregateId: string, aggregateVersion: unknown, event: IEvent): Promise<unknown> | unknown {
+  public commit(aggregateId: string, aggregateVersion: unknown, event: IEventPublisher): Promise<unknown> | unknown {
     return this._collection.insertOne({
       aggregateId,
       aggregateVersion,

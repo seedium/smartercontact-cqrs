@@ -1,8 +1,8 @@
-import { IEvent } from 'core';
+import { IEventSubscriber, IEventPublisher } from 'core';
 import { User } from 'protos/user/entities/user.entity_pb';
 import { UserCreatedEvent as UserCreatedEventProto } from 'protos/user/events/user-created.event_pb';
 
-export class UserCreatedEvent implements IEvent {
+export class UserCreatedEvent implements IEventPublisher, IEventSubscriber<UserCreatedEvent> {
   public static event = 'user.user-created';
   public event: string;
   constructor(public readonly user: User) {
@@ -16,7 +16,7 @@ export class UserCreatedEvent implements IEvent {
     userCreatedEvent.setUser(this.user);
     return userCreatedEvent.serializeBinary();
   }
-  static fromProto(message: Uint8Array): UserCreatedEvent {
+  fromProto(message: Uint8Array): UserCreatedEvent {
     const userCreatedEvent = UserCreatedEventProto.deserializeBinary(message);
     return new UserCreatedEvent(userCreatedEvent.getUser());
   }

@@ -1,5 +1,4 @@
-export interface Serializable<T = unknown> {
+export interface Serializable {
   toJson(): string;
   toProto(): Uint8Array;
-  fromProto?(): T;
 }

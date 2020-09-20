@@ -1,5 +1,5 @@
 import { kafka } from './kafka';
-import { IEvent, IEventHandler } from '../interfaces';
+import { IEventPublisher, IEventSubscriber, IEventHandler } from '../interfaces';
 
 export class EventBus {
   private _producer = kafka.producer();
@@ -14,13 +14,14 @@ export class EventBus {
     });
     await consumer.run({
       eachMessage: async ({ message }) => {
+        const tempEventHandler = new eventHandler.event() as IEventSubscriber<unknown>;
         await eventHandler.handle(
-          eventHandler.event.fromProto(message.value),
+          tempEventHandler.fromProto(message.value) as IEventSubscriber<unknown>,
         );
       },
     });
   }
-  public async publish(event: IEvent) {
+  public async publish(event: IEventPublisher) {
     await this._producer.send({
       topic: event.event,
       messages: [{

@@ -1,11 +1,15 @@
 import { Serializable } from './serializable';
-import { Type } from './type';
 
-export interface IEvent extends Serializable<IEvent> {
+export interface IEventPublisher extends Serializable {
    event: string;
 }
 
-export interface IEventStatic<T extends IEvent> extends Type<T> {
+export interface IEventSubscriber<T> {
    event: string;
    fromProto(message: Uint8Array): T;
+}
+
+export interface IEventSubscriberStatic<T> {
+   new (...args: any[]): T;
+   event: string;
 }

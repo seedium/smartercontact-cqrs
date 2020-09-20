@@ -1,5 +1,5 @@
-import { IEvent } from './event.interface';
+import { IEventPublisher } from './event.interface';
 
 export interface IEventStore {
-  commit(aggregateId: string, aggregateVersion: unknown, event: IEvent): Promise<unknown> | unknown;
+  commit(aggregateId: string, aggregateVersion: unknown, event: IEventPublisher): Promise<unknown> | unknown;
 }

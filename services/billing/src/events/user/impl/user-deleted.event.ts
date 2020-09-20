@@ -1,22 +1,14 @@
-import { IEvent } from 'core';
+import { IEventSubscriber } from 'core';
 import { User } from 'protos/user/entities/user.entity_pb';
 import { UserDeletedEvent as UserDeletedEventProto } from 'protos/user/events/user-deleted.event_pb';
 
-export class UserDeletedEvent implements IEvent {
+export class UserDeletedEvent implements IEventSubscriber<UserDeletedEvent> {
   public static event = 'user.user-deleted';
   public event: string;
   constructor(public readonly user: User) {
     this.event = UserDeletedEvent.event;
   }
-  toJson(): string {
-    return JSON.stringify(this.user.toObject());
-  }
-  toProto(): Uint8Array {
-    const userDeletedEvent = new UserDeletedEventProto();
-    userDeletedEvent.setUser(this.user);
-    return userDeletedEvent.serializeBinary();
-  }
-  static fromProto(message: Uint8Array): UserDeletedEvent {
+  fromProto(message: Uint8Array): UserDeletedEvent {
     const userDeletedEvent = UserDeletedEventProto.deserializeBinary(message);
     return new UserDeletedEvent(userDeletedEvent.getUser());
   }

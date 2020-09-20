@@ -1,6 +1,6 @@
-import { IEvent, IEventStatic } from './event.interface';
+import { IEventSubscriber, IEventSubscriberStatic } from './event.interface';
 
 export interface IEventHandler<T = unknown> {
-  event: IEventStatic<IEvent>;
-  handle(event: IEvent): Promise<unknown> | unknown;
+  event: IEventSubscriberStatic<T>;
+  handle(event: IEventSubscriber<T>): Promise<unknown> | unknown;
 }
