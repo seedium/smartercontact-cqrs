@@ -7,7 +7,22 @@ export abstract class AggregateRoot {
 
   public async publish(event: IEventPublisher) {}
   protected async apply(event: IEventPublisher) {
-    await this._eventStore.commit(this._aggregateId, this._aggregateVersion, event);
+    await this._eventStore.commit(
+      this._aggregateId,
+      this._aggregateVersion,
+      event,
+      event.constructor.name,
+    );
+    await this.publish(event);
+  }
+  protected async applyRollback(event: IEventPublisher) {
+    event.event = event.event + '.rollback';
+    await this._eventStore.commit(
+      this._aggregateId,
+      this._aggregateVersion,
+      event,
+      event.constructor.name + 'Rollback',
+    );
     await this.publish(event);
   }
 }
