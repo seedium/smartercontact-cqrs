@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+message CreatedOptions {
+  int32 gt = 1;
+  int32 gte = 2;
+  int32 lt = 3;
+  int32 lte = 4;
+}
+
+message ListOptions {
+  int32 limit = 1;
+  string starting_after = 2;
+  string ending_before = 3;
+  oneof created {
+    string timestamp = 7;
+    CreatedOptions options = 8;
+  }
+  int32 totalCount = 4;
+  repeated string include = 5;
+  repeated string expand = 6;
+}
+
+message ListResponse {
+  bool has_more = 1;
+}
+
+message Void {}

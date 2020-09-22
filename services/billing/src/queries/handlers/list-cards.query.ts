@@ -7,6 +7,6 @@ export class ListCardsQueryHandler implements IQueryHandler {
   query = ListCardsQuery;
   constructor(private readonly _cardRepository: CardRepository) {}
   public async execute(query: ListCardsQuery): Promise<Card[]> {
-    return this._cardRepository.list(query.idUser);
+    return this._cardRepository.listByUser(query.idUser);
   }
 }

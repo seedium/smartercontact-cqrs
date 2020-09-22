@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "user/entities/user.entity.proto";
+
+message RetrieveUserOptions {
+  string id_user = 1;
+}
+
+message RetrieveUserResponse {
+  User user = 1;
+}

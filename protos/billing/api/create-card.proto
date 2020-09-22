@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "billing/entities/card.entity.proto";
+
+message CreateCardOptions {
+  string id_user = 1;
+  Card card = 2;
+}
+
+message CreateCardResponse {
+  Card card = 1;
+}

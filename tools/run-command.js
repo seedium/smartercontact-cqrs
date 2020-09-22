@@ -18,7 +18,24 @@ const runCommand = async (cmd, options = {
       }
     }
     const child = spawn(exec, args, childOptions);
-    child.on('exit', resolve);
+    let result = '';
+    let error = '';
+    if (!options.stdout) {
+      child.stdout.on('data', (chunk) => {
+        result += chunk.toString();
+      });
+      child.stderr.on('data', (chunk) => {
+        error += chunk.toString();
+      });
+    }
+    child.on('exit', () => {
+      result = result.trim();
+      error = error.trim();
+      if (error) {
+        return reject(new Error(error));
+      }
+      return resolve(result);
+    });
   });
 };
 

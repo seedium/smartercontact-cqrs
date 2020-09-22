@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "billing/entities/balance.entity.proto";
+import "billing/api/retrieve-balance.proto";
+import "billing/api/create-card.proto";
+import "billing/api/list-card.proto";
+
+service BillingService {
+  rpc retrieveBalance(RetrieveBalanceOptions) returns (RetrieveBalanceResponse);
+  rpc createCard(CreateCardOptions) returns (Balance);
+  rpc listCard(ListCardOptions) returns (ListCardResponse);
+}

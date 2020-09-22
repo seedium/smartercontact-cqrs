@@ -136,6 +136,7 @@ const start = async () => {
   await runCommand(`docker-compose up -d`, {
     stdout: true,
   });
+  await delay(10000);
   const builder = new BuilderManager();
   await builder.start();
 };

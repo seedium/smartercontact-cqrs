@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+message DeleteUserOptions {
+  string id = 1;
+}

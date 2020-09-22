@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "billing/entities/balance.entity.proto";
+
+message RetrieveBalanceOptions {
+  string id_user = 1;
+}
+
+message RetrieveBalanceResponse {
+  Balance balance = 1;
+}

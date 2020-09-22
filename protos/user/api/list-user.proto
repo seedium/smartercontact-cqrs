@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "common/api.proto";
+import "user/entities/user.entity.proto";
+
+message UserListOptions {
+  ListOptions options = 1;
+}
+
+message UserListResponse {
+  ListResponse options = 1;
+  repeated User data = 2;
+}

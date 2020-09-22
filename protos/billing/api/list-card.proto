@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "common/api.proto";
+import "billing/entities/card.entity.proto";
+
+message ListCardOptions {
+  ListOptions options = 1;
+  string id_user = 2;
+}
+
+message ListCardResponse {
+  ListResponse options = 1;
+  repeated Card data = 2;
+}

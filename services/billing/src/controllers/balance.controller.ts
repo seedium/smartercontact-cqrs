@@ -1,15 +1,16 @@
 import { QueryBus } from 'core';
 import { RetrieveBalanceQuery } from '../queries/impl';
-import { BalanceMapper } from '../mappers';
+import { RetrieveBalanceOptions, RetrieveBalanceResponse } from 'protos/billing/api/retrieve-balance_pb';
 import { Balance } from 'protos/billing/entities/balance.entity_pb';
 
 export class BalanceController {
   constructor(
     private readonly _queryBus: QueryBus,
-    private readonly _balanceMapper: BalanceMapper,
   ) {}
-  public async getBalance(req) {
-    const balance = await this._queryBus.execute<Balance>(new RetrieveBalanceQuery(req.params.idUser));
-    return this._balanceMapper.toObject(balance);
+  public async retrieveBalance(req: RetrieveBalanceOptions): Promise<RetrieveBalanceResponse> {
+    const balance = await this._queryBus.execute<Balance>(new RetrieveBalanceQuery(req.getIdUser()));
+    const retrieveBalanceResponse = new RetrieveBalanceResponse();
+    retrieveBalanceResponse.setBalance(balance);
+    return retrieveBalanceResponse;
   }
 }

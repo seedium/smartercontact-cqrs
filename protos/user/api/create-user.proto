@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+import "user/entities/user.entity.proto";
+
+message CreateUserOptions {
+  User user = 1;
+}
+
+message CreateUserResponse {
+  User user = 1;
+}

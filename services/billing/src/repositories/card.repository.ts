@@ -22,6 +22,12 @@ export class CardRepository {
     const list = await this._collection.find(options).toArray();
     return this._cardMapper.fromArray(list);
   }
+  public async listByUser(idUser: string): Promise<Card[]> {
+    const list = await this._collection.find({
+      user: idUser,
+    }).toArray();
+    return this._cardMapper.fromArray(list);
+  }
   public async delete(idCard: string): Promise<void> {
     await this._collection.deleteOne({ id: idCard });
   }

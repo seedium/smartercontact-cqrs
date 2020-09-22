@@ -12,6 +12,7 @@
   "dependencies": {
     "core": "workspace:packages/core",
     "dotenv": "^8.2.0",
+    "grpc": "^1.24.3",
     "protos": "workspace:packages/protos",
     "uuid": "^8.3.0"
   }
