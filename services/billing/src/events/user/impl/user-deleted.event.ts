@@ -1,6 +1,5 @@
 import { IEventSubscriber } from 'core';
-import { User } from 'protos/user/entities/user.entity_pb';
-import { UserDeletedEvent as UserDeletedEventProto } from 'protos/user/events/user-deleted.event_pb';
+import { User, UserDeletedEvent as UserDeletedEventProto } from 'protos';
 
 export class UserDeletedEvent implements IEventSubscriber<UserDeletedEvent> {
   public static event = 'user.user-deleted';

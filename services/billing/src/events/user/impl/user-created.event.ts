@@ -1,6 +1,5 @@
 import { IEventSubscriber } from 'core';
-import { User } from 'protos/user/entities/user.entity_pb';
-import { UserCreatedEvent as UserCreatedEventProto } from 'protos/user/events/user-created.event_pb';
+import { User, UserCreatedEvent as UserCreatedEventProto } from 'protos';
 
 export class UserCreatedEvent implements IEventSubscriber<UserCreatedEvent> {
   public static event = 'user.user-created';

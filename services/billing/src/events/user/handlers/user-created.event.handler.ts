@@ -1,5 +1,5 @@
 import { EventPublisher, IEventHandler } from 'core';
-import { Balance as BalanceProto } from 'protos/billing/entities/balance.entity_pb';
+import { Balance as BalanceProto } from 'protos';
 import { UserCreatedEvent } from '../impl';
 import { Balance } from '../../../models';
 

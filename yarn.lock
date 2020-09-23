@@ -660,6 +660,7 @@ __metadata:
     core: "workspace:packages/core"
     dotenv: ^8.2.0
     grpc: ^1.24.3
+    mappers: "workspace:packages/mappers"
     mongodb: ^3.6.2
     protos: "workspace:packages/protos"
     tslib: ^2.0.1
@@ -2448,6 +2449,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mappers@workspace:packages/mappers":
+  version: 0.0.0-use.local
+  resolution: "mappers@workspace:packages/mappers"
+  dependencies:
+    core: "workspace:packages/core"
+    protos: "workspace:packages/protos"
+    tslib: ^2.0.1
+  languageName: unknown
+  linkType: soft
+
 "memory-pager@npm:^1.0.2":
   version: 1.5.0
   resolution: "memory-pager@npm:1.5.0"
@@ -4016,6 +4027,7 @@ typescript@^4.0.2:
     core: "workspace:packages/core"
     dotenv: ^8.2.0
     grpc: ^1.24.3
+    mappers: "workspace:packages/mappers"
     protos: "workspace:packages/protos"
     tslib: ^2.0.1
     uuid: ^8.3.0

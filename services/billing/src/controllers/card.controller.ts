@@ -1,10 +1,14 @@
 import { CommandBus, QueryBus } from 'core';
+import {
+  ListResponse,
+  Card,
+  CreateCardOptions,
+  CreateCardResponse,
+  ListCardOptions,
+  ListCardResponse,
+} from 'protos';
 import { ListCardsQuery } from '../queries/impl';
-import { Card } from 'protos/billing/entities/card.entity_pb';
-import { CreateCardOptions, CreateCardResponse } from 'protos/billing/api/create-card_pb';
-import { ListCardOptions, ListCardResponse } from 'protos/billing/api/list-card_pb';
 import { CreateUserCardCommand } from '../commands/impl';
-import { ListResponse } from 'protos/common/api_pb';
 
 export class CardController {
   constructor(

@@ -1,9 +1,14 @@
 import { CommandBus, QueryBus } from 'core';
-import { User } from 'protos/user/entities/user.entity_pb';
-import { ListResponse, Void } from 'protos/common/api_pb';
-import { RetrieveUserOptions, RetrieveUserResponse } from 'protos/user/api/retrieve-user_pb';
-import { UserListOptions, UserListResponse } from 'protos/user/api/list-user_pb';
-import { DeleteUserOptions } from 'protos/user/api/delete-user_pb';
+import {
+  User,
+  ListResponse,
+  Void,
+  RetrieveUserOptions,
+  RetrieveUserResponse,
+  UserListOptions,
+  UserListResponse,
+  DeleteUserOptions,
+} from 'protos';
 import { UserCreateCommand, UserDeleteCommand } from '../commands/impl';
 import { GetUsersQuery, RetrieveUserQuery } from '../queries/impl';
 

@@ -1,6 +1,5 @@
 import { IEventPublisher, IEventSubscriber } from 'core';
-import { Balance } from 'protos/billing/entities/balance.entity_pb';
-import { BalanceCreatedEvent as BalanceCreatedEventProto } from 'protos/billing/events/balance-created.event_pb';
+import { Balance, BalanceCreatedEvent as BalanceCreatedEventProto } from 'protos';
 
 export class BalanceCreatedEvent implements IEventPublisher, IEventSubscriber<BalanceCreatedEvent> {
   public static event = 'billing.balance-created';

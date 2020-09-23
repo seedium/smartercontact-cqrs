@@ -15,6 +15,8 @@ const delay = promisify(setTimeout);
 
 const packagesProjects = {
   core: 'packages/core',
+  protos: 'packages/protos',
+  mappers: 'packages/mappers',
 };
 
 const KILL_SIGNAL = '15'; // SIGTERM

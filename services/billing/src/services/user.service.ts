@@ -1,6 +1,4 @@
-import { User } from 'protos/user/entities/user.entity_pb';
-import { UserServiceClient } from 'protos/user/service_grpc_pb';
-import { RetrieveUserOptions } from 'protos/user/api/retrieve-user_pb';
+import { User, UserServiceClient, RetrieveUserOptions } from 'protos';
 
 export class UserService {
   constructor(private readonly _userServiceClient: UserServiceClient) {

@@ -1,15 +1,14 @@
 import { RpcApp, CommandBus, EventPublisher, EventBus, QueryBus, rpcController } from 'core';
 import * as grpc from 'grpc';
+import { UserServiceClient, BillingServiceService } from 'protos';
 import { commandDb, viewDb } from './lib';
 import { BalanceController, CardController } from './controllers';
 import { BalanceRepository, CardRepository } from './repositories';
 import { ListCardsQueryHandler, RetrieveBalanceQueryHandler } from './queries/handlers';
 import { BalanceCreatedEventHandler, BalanceDeletedEventHandler, CardCreatedEventHandler } from './events/billing/handlers';
 import { UserCreatedEventHandler, UserDeletedEventHandler } from './events/user/handlers';
-import { BalanceMapper, CardMapper } from './mappers';
+import { BalanceMapper, CardMapper } from 'mappers';
 import { CreateUserCardCommandHandler } from './commands/handlers';
-import { UserServiceClient } from 'protos/user/service_grpc_pb';
-import { BillingServiceService } from 'protos/billing/service_grpc_pb';
 import { UserService } from './services';
 
 const start = async () => {

@@ -1,7 +1,7 @@
 import { IQueryHandler } from 'core';
+import { Card } from 'protos';
 import { ListCardsQuery } from '../impl';
 import { CardRepository } from '../../repositories';
-import { Card } from 'protos/billing/entities/card.entity_pb';
 
 export class ListCardsQueryHandler implements IQueryHandler {
   query = ListCardsQuery;

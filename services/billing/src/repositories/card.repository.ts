@@ -1,7 +1,7 @@
 import { Collection } from 'mongodb';
+import { Card } from 'protos';
+import { CardMapper } from 'mappers';
 import { viewDb } from '../lib';
-import { Card } from 'protos/billing/entities/card.entity_pb';
-import { CardMapper } from '../mappers';
 
 export class CardRepository {
   private _collection: Collection;
@@ -11,7 +11,8 @@ export class CardRepository {
     this._collection = viewDb.db('cqrs_view').collection('cards');
   }
   public async create(card: Card): Promise<Card> {
-    const result = await this._collection.insertOne(this._cardMapper.toObject(card));
+    const cardDto = this._cardMapper.toObject(card);
+    const result = await this._collection.insertOne(cardDto);
     return this._cardMapper.fromObject(result.ops[0]);
   }
   public async retrieve(idCard: string): Promise<Card> {

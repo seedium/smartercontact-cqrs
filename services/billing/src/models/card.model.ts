@@ -1,7 +1,7 @@
 import { AggregateRoot, MongoEventStore } from 'core';
+import type { Card as CardProto } from 'protos';
 import { commandDb } from '../lib';
 import { CardCreatedEvent } from '../events/billing/impl';
-import type { Card as CardProto } from 'protos/billing/entities/card.entity_pb';
 import { createCardId } from '../helpers/create-card-id';
 
 export class Card extends AggregateRoot {

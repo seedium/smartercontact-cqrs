@@ -1,7 +1,7 @@
 import { IQueryHandler } from 'core';
+import { Balance } from 'protos';
 import { RetrieveBalanceQuery } from '../impl';
 import { BalanceRepository } from '../../repositories';
-import { Balance } from 'protos/billing/entities/balance.entity_pb';
 
 export class RetrieveBalanceQueryHandler implements IQueryHandler {
   query = RetrieveBalanceQuery;

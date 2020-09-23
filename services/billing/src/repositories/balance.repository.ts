@@ -1,7 +1,7 @@
 import { Collection } from 'mongodb';
+import { Balance } from 'protos';
+import { BalanceMapper } from 'mappers';
 import { viewDb } from '../lib';
-import { Balance } from 'protos/billing/entities/balance.entity_pb';
-import { BalanceMapper } from '../mappers';
 
 export class BalanceRepository {
   private _collection: Collection;
@@ -11,7 +11,8 @@ export class BalanceRepository {
     this._collection = viewDb.db('cqrs_view').collection('balances');
   }
   public async create(balance: Balance): Promise<Balance> {
-    const result = await this._collection.insertOne(balance.toObject());
+    const balanceDto = this._balanceMapper.toObject(balance);
+    const result = await this._collection.insertOne(balanceDto);
     return this._balanceMapper.fromObject(result.ops[0]);
   }
   public async retrieve(id: string): Promise<Balance> {

@@ -1,8 +1,8 @@
 import { EventPublisher, ICommandHandler } from 'core';
+import { Card as CardProto } from 'protos';
 import { CreateUserCardCommand } from '../impl';
 import { CardRepository } from '../../repositories';
 import { Card } from '../../models';
-import { Card as CardProto } from 'protos/billing/entities/card.entity_pb';
 import { UserService } from '../../services';
 
 export class CreateUserCardCommandHandler implements ICommandHandler<CardProto> {

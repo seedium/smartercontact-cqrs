@@ -1,5 +1,5 @@
 import { Command } from 'core';
-import type { Card } from 'protos/billing/entities/card.entity_pb';
+import type { Card } from 'protos';
 
 export class CreateUserCardCommand extends Command {
   constructor(

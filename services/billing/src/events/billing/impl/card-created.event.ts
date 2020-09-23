@@ -1,6 +1,5 @@
 import { IEventPublisher, IEventSubscriber } from 'core';
-import { Card } from 'protos/billing/entities/card.entity_pb';
-import { CardCreatedEvent as CardCreatedEventProto } from 'protos/billing/events/card-created.event_pb';
+import { Card, CardCreatedEvent as CardCreatedEventProto } from 'protos';
 
 export class CardCreatedEvent implements IEventPublisher, IEventSubscriber<CardCreatedEvent> {
   public static event = 'billing.card-created';

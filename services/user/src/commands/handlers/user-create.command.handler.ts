@@ -1,5 +1,5 @@
 import { ICommandHandler, EventPublisher } from 'core';
-import { User as UserProto } from 'protos/user/entities/user.entity_pb';
+import { User as UserProto } from 'protos';
 import { UserCreateCommand } from '../impl';
 import { UserRepository } from '../../repositories';
 import { User } from '../../models';

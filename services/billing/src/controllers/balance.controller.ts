@@ -1,7 +1,6 @@
 import { QueryBus } from 'core';
+import { RetrieveBalanceOptions, RetrieveBalanceResponse, Balance } from 'protos';
 import { RetrieveBalanceQuery } from '../queries/impl';
-import { RetrieveBalanceOptions, RetrieveBalanceResponse } from 'protos/billing/api/retrieve-balance_pb';
-import { Balance } from 'protos/billing/entities/balance.entity_pb';
 
 export class BalanceController {
   constructor(

@@ -27,6 +27,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/core"
       },
       {
+        "name": "mappers",
+        "reference": "workspace:packages/mappers"
+      },
+      {
         "name": "protos",
         "reference": "workspace:packages/protos"
       },
@@ -68,6 +72,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["communication", ["workspace:services/communication"]],
       ["contact", ["workspace:services/contact"]],
       ["core", ["workspace:packages/core"]],
+      ["mappers", ["workspace:packages/mappers"]],
       ["message", ["workspace:services/message"]],
       ["protos", ["workspace:packages/protos"]],
       ["smartercontact-cqrs", ["workspace:."]],
@@ -843,6 +848,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["core", "workspace:packages/core"],
             ["dotenv", "npm:8.2.0"],
             ["grpc", "npm:1.24.3"],
+            ["mappers", "workspace:packages/mappers"],
             ["mongodb", "npm:3.6.2"],
             ["protos", "workspace:packages/protos"],
             ["tslib", "npm:2.0.1"],
@@ -2865,6 +2871,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["mappers", [
+        ["workspace:packages/mappers", {
+          "packageLocation": "./packages/mappers/",
+          "packageDependencies": [
+            ["mappers", "workspace:packages/mappers"],
+            ["core", "workspace:packages/core"],
+            ["protos", "workspace:packages/protos"],
+            ["tslib", "npm:2.0.1"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
       ["memory-pager", [
         ["npm:1.5.0", {
           "packageLocation": "./.yarn/cache/memory-pager-npm-1.5.0-46e20e6c81-6812af8165.zip/node_modules/memory-pager/",
@@ -4578,6 +4596,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["core", "workspace:packages/core"],
             ["dotenv", "npm:8.2.0"],
             ["grpc", "npm:1.24.3"],
+            ["mappers", "workspace:packages/mappers"],
             ["protos", "workspace:packages/protos"],
             ["tslib", "npm:2.0.1"],
             ["uuid", "npm:8.3.0"]

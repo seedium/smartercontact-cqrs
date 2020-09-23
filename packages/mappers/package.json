@@ -1,0 +1,10 @@
+{
+  "name": "mappers",
+  "dependencies": {
+    "core": "workspace:packages/core",
+    "protos": "workspace:packages/protos"
+  },
+  "devDependencies": {
+    "tslib": "^2.0.1"
+  }
+}

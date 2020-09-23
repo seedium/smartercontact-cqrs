@@ -1,7 +1,7 @@
 import { Collection } from 'mongodb';
 import { viewDb } from '../lib';
-import { User } from 'protos/user/entities/user.entity_pb';
-import { UserMapper } from '../mappers';
+import { User } from 'protos';
+import { UserMapper } from 'mappers';
 
 export class UserRepository {
   private _collection: Collection;

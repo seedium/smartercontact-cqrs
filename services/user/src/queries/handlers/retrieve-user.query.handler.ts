@@ -1,7 +1,7 @@
+import { IQueryHandler } from 'core';
+import { User } from 'protos';
 import { RetrieveUserQuery } from '../impl';
 import { UserRepository } from '../../repositories';
-import { IQueryHandler } from 'core';
-import { User } from 'protos/user/entities/user.entity_pb';
 
 export class RetrieveUserQueryHandler implements IQueryHandler<User> {
   public query = RetrieveUserQuery;

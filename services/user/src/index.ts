@@ -1,12 +1,12 @@
 import { RpcApp, CommandBus, EventPublisher, EventBus, QueryBus, rpcController } from 'core';
+import { UserServiceService } from 'protos';
+import { UserMapper } from 'mappers';
 import { commandDb, viewDb } from './lib';
 import { UserRepository } from './repositories';
 import { UserController } from './controllers';
 import { UserCreateCommandHandler, UserDeleteCommandHandler } from './commands/handlers';
 import { UserCreatedEventHandler, UserDeletedEventHandler } from './events/handlers';
 import { GetUsersQueryHandler, RetrieveUserQueryHandler } from './queries/handlers';
-import { UserMapper } from './mappers';
-import { UserServiceService } from 'protos/user/service_grpc_pb';
 
 const start = async () => {
   const app = new RpcApp();

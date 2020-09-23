@@ -14,7 +14,7 @@ const compile = async () => {
   const pluginProtocGenGrpc = await runCommand(`yarn bin grpc_tools_node_protoc_plugin`);
   const pluginProtocGenTs = await runCommand(`yarn bin protoc-gen-ts`);
 
-  await rimrafAsync('packages/protos/**/*.{js,ts}');
+  await rimrafAsync('packages/protos/**/*.{js,d.ts}');
   await runCommand(`yarn grpc_tools_node_protoc \
   --plugin=protoc-gen-grpc=${pluginProtocGenGrpc} \
   -I ${srcFolder} \

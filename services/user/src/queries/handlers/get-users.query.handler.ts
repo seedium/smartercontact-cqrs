@@ -1,7 +1,7 @@
 import { GetUsersQuery } from '../impl';
 import { UserRepository } from '../../repositories';
 import { IQueryHandler } from 'core';
-import { User } from 'protos/user/entities/user.entity_pb';
+import { User } from 'protos';
 
 export class GetUsersQueryHandler implements IQueryHandler<User[]> {
   public query = GetUsersQuery;

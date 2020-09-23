@@ -1,0 +1,15 @@
+{
+  "extends": "./../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "./"
+  },
+  "include": ["./*.ts", "./**/*.ts"],
+  "references": [
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../protos"
+    }
+  ]
+}
