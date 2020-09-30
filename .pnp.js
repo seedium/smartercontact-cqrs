@@ -27,6 +27,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/core"
       },
       {
+        "name": "@sc/events",
+        "reference": "workspace:packages/events"
+      },
+      {
         "name": "mappers",
         "reference": "workspace:packages/mappers"
       },
@@ -66,6 +70,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "enableTopLevelFallback": true,
     "ignorePatternData": "(^(?:\\.yarn\\/sdks(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$)",
     "fallbackExclusionList": [
+      ["@sc/events", ["workspace:packages/events"]],
       ["analytics", ["workspace:services/analytics"]],
       ["billing", ["workspace:services/billing"]],
       ["campaign", ["workspace:services/campaign"]],
@@ -109,6 +114,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@hapi/bourne", "npm:2.0.0"]
           ],
           "linkType": "HARD",
+        }]
+      ]],
+      ["@sc/events", [
+        ["workspace:packages/events", {
+          "packageLocation": "./packages/events/",
+          "packageDependencies": [
+            ["@sc/events", "workspace:packages/events"],
+            ["core", "workspace:packages/core"],
+            ["protos", "workspace:packages/protos"],
+            ["tslib", "npm:2.0.1"]
+          ],
+          "linkType": "SOFT",
         }]
       ]],
       ["@types/bson", [
@@ -842,6 +859,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./services/billing/",
           "packageDependencies": [
             ["billing", "workspace:services/billing"],
+            ["@sc/events", "workspace:packages/events"],
             ["@types/mongodb", "npm:3.5.27"],
             ["@types/node", "npm:14.6.4"],
             ["@types/uuid", "npm:8.3.0"],
@@ -4590,6 +4608,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./services/user/",
           "packageDependencies": [
             ["user", "workspace:services/user"],
+            ["@sc/events", "workspace:packages/events"],
             ["@types/mongodb", "npm:3.5.27"],
             ["@types/node", "npm:14.6.4"],
             ["@types/uuid", "npm:8.3.0"],

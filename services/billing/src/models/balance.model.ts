@@ -1,7 +1,7 @@
+import { BalanceCreatedEvent, BalanceDeletedEvent } from '@sc/events';
 import { AggregateRoot, MongoEventStore } from 'core';
 import { Balance as BalanceProto } from 'protos';
 import { commandDb } from '../lib';
-import { BalanceCreatedEvent, BalanceDeletedEvent } from '../events/billing/impl';
 import { createBalanceId } from '../helpers/create-balance-id';
 
 export class Balance extends AggregateRoot {

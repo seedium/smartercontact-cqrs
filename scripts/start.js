@@ -17,6 +17,7 @@ const packagesProjects = {
   core: 'packages/core',
   protos: 'packages/protos',
   mappers: 'packages/mappers',
+  events: 'packages/events',
 };
 
 const KILL_SIGNAL = '15'; // SIGTERM

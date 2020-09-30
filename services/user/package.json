@@ -10,6 +10,7 @@
     "tslib": "^2.0.1"
   },
   "dependencies": {
+    "@sc/events": "workspace:packages/events",
     "core": "workspace:packages/core",
     "dotenv": "^8.2.0",
     "grpc": "^1.24.3",

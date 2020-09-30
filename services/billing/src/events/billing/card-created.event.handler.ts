@@ -1,6 +1,6 @@
 import { IEventHandler } from 'core';
-import { CardCreatedEvent } from '../impl';
-import { CardRepository } from '../../../repositories';
+import { CardCreatedEvent } from '@sc/events';
+import { CardRepository } from '../../repositories';
 
 export class CardCreatedEventHandler implements IEventHandler {
   event = CardCreatedEvent;

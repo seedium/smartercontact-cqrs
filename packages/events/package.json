@@ -1,0 +1,10 @@
+{
+  "name": "@sc/events",
+  "devDependencies": {
+    "tslib": "^2.0.1"
+  },
+  "dependencies": {
+    "core": "workspace:packages/core",
+    "protos": "workspace:packages/protos"
+  }
+}

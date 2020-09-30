@@ -1,6 +1,6 @@
-import { UserCreatedEvent } from '../impl';
+import { UserCreatedEvent } from '@sc/events';
 import { IEventHandler } from 'core';
-import { UserRepository } from '../../repositories';
+import { UserRepository } from '../repositories';
 
 export class UserCreatedEventHandler implements IEventHandler {
   public event = UserCreatedEvent;

@@ -5,7 +5,7 @@ import { commandDb, viewDb } from './lib';
 import { UserRepository } from './repositories';
 import { UserController } from './controllers';
 import { UserCreateCommandHandler, UserDeleteCommandHandler } from './commands/handlers';
-import { UserCreatedEventHandler, UserDeletedEventHandler } from './events/handlers';
+import { UserCreatedEventHandler, UserDeletedEventHandler } from './events';
 import { GetUsersQueryHandler, RetrieveUserQueryHandler } from './queries/handlers';
 
 const start = async () => {

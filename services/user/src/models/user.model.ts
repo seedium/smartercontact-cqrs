@@ -1,7 +1,7 @@
+import { UserCreatedEvent, UserDeletedEvent } from '@sc/events';
 import { AggregateRoot, MongoEventStore } from 'core';
 import { User as UserProto } from 'protos';
 import { commandDb } from '../lib';
-import { UserCreatedEvent, UserDeletedEvent } from '../events/impl';
 import { createUserId } from '../helpers/create-user-id';
 
 export class User extends AggregateRoot {

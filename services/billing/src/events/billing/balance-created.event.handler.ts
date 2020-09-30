@@ -1,6 +1,6 @@
 import { IEventHandler } from 'core';
-import { BalanceCreatedEvent } from '../impl';
-import { BalanceRepository } from '../../../repositories';
+import { BalanceCreatedEvent } from '@sc/events';
+import { BalanceRepository } from '../../repositories';
 
 export class BalanceCreatedEventHandler implements IEventHandler {
   event = BalanceCreatedEvent;

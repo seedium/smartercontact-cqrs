@@ -1,7 +1,7 @@
-import { UserDeletedEvent } from '../impl';
+import { UserDeletedEvent } from '@sc/events';
 import { EventPublisher, IEventHandler } from 'core';
-import { Balance } from '../../../models';
-import { BalanceRepository } from '../../../repositories';
+import { Balance } from '../../models';
+import { BalanceRepository } from '../../repositories';
 
 export class UserDeletedEventHandler implements IEventHandler {
   public event = UserDeletedEvent;
