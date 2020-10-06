@@ -1231,6 +1231,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["kafkajs", "npm:1.12.0"],
             ["mongodb", "npm:3.6.1"],
             ["pino", "npm:6.5.1"],
+            ["rxjs", "npm:6.6.3"],
             ["tslib", "npm:2.0.1"],
             ["uuid", "npm:8.3.0"]
           ],
@@ -3846,6 +3847,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["rxjs", [
+        ["npm:6.6.3", {
+          "packageLocation": "./.yarn/cache/rxjs-npm-6.6.3-a1e67d677b-61a3da6db9.zip/node_modules/rxjs/",
+          "packageDependencies": [
+            ["rxjs", "npm:6.6.3"],
+            ["tslib", "npm:1.14.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["safe-buffer", [
         ["npm:5.1.2", {
           "packageLocation": "./.yarn/cache/safe-buffer-npm-5.1.2-c27fedf6c4-2708587c1b.zip/node_modules/safe-buffer/",
@@ -4496,6 +4507,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["tslib", [
+        ["npm:1.14.0", {
+          "packageLocation": "./.yarn/cache/tslib-npm-1.14.0-09e49941a3-dfbb39a7f2.zip/node_modules/tslib/",
+          "packageDependencies": [
+            ["tslib", "npm:1.14.0"]
+          ],
+          "linkType": "HARD",
+        }],
         ["npm:2.0.1", {
           "packageLocation": "./.yarn/cache/tslib-npm-2.0.1-26f70961f9-7b42337a07.zip/node_modules/tslib/",
           "packageDependencies": [
@@ -4617,6 +4635,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["grpc", "npm:1.24.3"],
             ["mappers", "workspace:packages/mappers"],
             ["protos", "workspace:packages/protos"],
+            ["rxjs", "npm:6.6.3"],
             ["tslib", "npm:2.0.1"],
             ["uuid", "npm:8.3.0"]
           ],

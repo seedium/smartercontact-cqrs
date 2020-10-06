@@ -4,9 +4,20 @@ import { UserMapper } from 'mappers';
 import { commandDb, viewDb } from './lib';
 import { UserRepository } from './repositories';
 import { UserController } from './controllers';
-import { UserCreateCommandHandler, UserDeleteCommandHandler } from './commands/handlers';
-import { UserCreatedEventHandler, UserDeletedEventHandler } from './events';
+import {
+  UserCreateCommandHandler,
+  UserCreateRollbackCommandHandler,
+  UserDeleteCommandHandler,
+} from './commands/handlers';
+import {
+  UserCreatedEventHandler,
+  UserCreatedFailEventHandler,
+  UserDeletedEventHandler,
+  UserDeletedFailEventHandler,
+  BalanceCreatedFailEventHandler,
+} from './events';
 import { GetUsersQueryHandler, RetrieveUserQueryHandler } from './queries/handlers';
+import { UserSaga } from './sagas';
 
 const start = async () => {
   const app = new RpcApp();
@@ -18,7 +29,7 @@ const start = async () => {
 
     const commandBus = new CommandBus();
     const queryBus = new QueryBus();
-    const eventBus = new EventBus();
+    const eventBus = new EventBus(commandBus);
     const eventPublisher = new EventPublisher(eventBus);
     const userMapper = new UserMapper();
 
@@ -28,17 +39,25 @@ const start = async () => {
     // controllers
     const userController = new UserController(commandBus, queryBus);
 
+    // sagas
+    const userSaga = new UserSaga();
+
     commandBus.registerHandler(new UserCreateCommandHandler(eventPublisher, userRepository));
+    commandBus.registerHandler(new UserCreateRollbackCommandHandler(eventPublisher, userRepository));
     commandBus.registerHandler(new UserDeleteCommandHandler(eventPublisher, userRepository));
     queryBus.registerQuery(new GetUsersQueryHandler(userRepository));
     queryBus.registerQuery(new RetrieveUserQueryHandler(userRepository));
     await Promise.all([
       new UserCreatedEventHandler(userRepository),
+      new UserCreatedFailEventHandler(userRepository),
       new UserDeletedEventHandler(userRepository),
+      new UserDeletedFailEventHandler(userRepository),
+      new BalanceCreatedFailEventHandler(),
     ].map(
       (event) =>
         eventBus.registerEventHandler(`user.${event.event.event}`, event)),
     );
+    eventBus.registerSaga(userSaga.balanceCreatedFail);
 
     app.server.addService(UserServiceService, {
       retrieve: rpcController(userController.retrieve.bind(userController)),

@@ -5,6 +5,7 @@ import { Balance } from '../../models';
 
 export class UserCreatedEventHandler implements IEventHandler {
   public event = UserCreatedEvent;
+  private _balance: Balance;
   constructor(
     private readonly _eventPublisher: EventPublisher,
   ) {}
@@ -14,9 +15,12 @@ export class UserCreatedEventHandler implements IEventHandler {
     balanceDto.setAmount(0);
     balanceDto.setCurrency('usd');
     balanceDto.setCreated(Date.now());
-    const balance: Balance = this._eventPublisher.mergeObjectContext(
+    this._balance = this._eventPublisher.mergeObjectContext(
       new Balance(balanceDto),
     );
-    await balance.create();
+    await this._balance.create();
+  }
+  public async onFail(event: UserCreatedEvent) {
+    return await this._balance.createFail();
   }
 }

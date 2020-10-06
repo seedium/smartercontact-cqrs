@@ -20,7 +20,7 @@ const start = async () => {
     ]);
     const commandBus = new CommandBus();
     const queryBus = new QueryBus();
-    const eventBus = new EventBus();
+    const eventBus = new EventBus(commandBus);
     const eventPublisher = new EventPublisher(eventBus);
     const balanceMapper = new BalanceMapper();
     const cardMapper = new CardMapper();

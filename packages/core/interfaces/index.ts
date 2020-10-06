@@ -8,3 +8,4 @@ export * from './query.interface';
 export * from './query-handler.interface';
 export * from './event-store.interface';
 export * from './data-mapper.interface';
+export * from './saga.interface';

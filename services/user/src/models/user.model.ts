@@ -1,4 +1,4 @@
-import { UserCreatedEvent, UserDeletedEvent } from '@sc/events';
+import { UserCreatedEvent, UserDeletedEvent, UserCreatedFailEvent } from '@sc/events';
 import { AggregateRoot, MongoEventStore } from 'core';
 import { User as UserProto } from 'protos';
 import { commandDb } from '../lib';
@@ -18,6 +18,9 @@ export class User extends AggregateRoot {
     this.user.setId(idUser);
     await this.apply(new UserCreatedEvent(this.user));
     return this;
+  }
+  public async createRollback(): Promise<void> {
+    await this.apply(new UserCreatedFailEvent(this.user));
   }
   public async delete(): Promise<void> {
     await this.apply(new UserDeletedEvent(this.user));

@@ -1002,6 +1002,7 @@ __metadata:
     kafkajs: ^1.12.0
     mongodb: ^3.6.1
     pino: ^6.5.1
+    rxjs: ^6.6.3
     tslib: ^2.0.1
     uuid: ^8.3.0
   languageName: unknown
@@ -3334,6 +3335,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rxjs@npm:^6.6.3":
+  version: 6.6.3
+  resolution: "rxjs@npm:6.6.3"
+  dependencies:
+    tslib: ^1.9.0
+  checksum: 61a3da6db947f69b7d805df3a619d8f60678b7372c4d571dd63e45ef3532be984a88307ea0aa2cd8d2578b62c3c022186e8da9dca47c9c1b8c9ecba6f5581deb
+  languageName: node
+  linkType: hard
+
 "safe-buffer@npm:^5.0.1, safe-buffer@npm:^5.1.1, safe-buffer@npm:^5.1.2, safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
@@ -3922,6 +3932,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:^1.9.0":
+  version: 1.14.0
+  resolution: "tslib@npm:1.14.0"
+  checksum: dfbb39a7f241f952ada0f1b148ad88b736e2030a2d44de2aad0723ac7527a3fdda1f710859e66495fd46659cf227727f74d6a10410d5562b7b23dbdc92e66c98
+  languageName: node
+  linkType: hard
+
 "tslib@npm:^2.0.1":
   version: 2.0.1
   resolution: "tslib@npm:2.0.1"
@@ -4041,6 +4058,7 @@ typescript@^4.0.2:
     grpc: ^1.24.3
     mappers: "workspace:packages/mappers"
     protos: "workspace:packages/protos"
+    rxjs: ^6.6.3
     tslib: ^2.0.1
     uuid: ^8.3.0
   languageName: unknown

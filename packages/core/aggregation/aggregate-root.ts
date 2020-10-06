@@ -6,7 +6,7 @@ export abstract class AggregateRoot {
   protected _aggregateVersion: number | string;
 
   public async publish(event: IEventPublisher) {}
-  protected async apply(event: IEventPublisher) {
+  protected async apply(event: IEventPublisher): Promise<IEventPublisher> {
     await this._eventStore.commit(
       this._aggregateId,
       this._aggregateVersion,
@@ -14,15 +14,6 @@ export abstract class AggregateRoot {
       event.constructor.name,
     );
     await this.publish(event);
-  }
-  protected async applyRollback(event: IEventPublisher) {
-    event.event = event.event + '.rollback';
-    await this._eventStore.commit(
-      this._aggregateId,
-      this._aggregateVersion,
-      event,
-      event.constructor.name + 'Rollback',
-    );
-    await this.publish(event);
+    return event;
   }
 }
