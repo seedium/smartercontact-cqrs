@@ -1,4 +1,4 @@
-import { RpcApp, CommandBus, EventPublisher, EventBus, QueryBus, rpcController } from 'core';
+import { RpcApp, CommandBus, EventPublisher, EventBus, QueryBus, rpcController, MongoEventStore } from 'core';
 import { UserServiceService } from 'protos';
 import { UserMapper } from 'mappers';
 import { commandDb, viewDb } from './lib';
@@ -26,11 +26,11 @@ const start = async () => {
       commandDb.connect(),
       viewDb.connect(),
     ]);
-
+    const userEventCollection = commandDb.db('cqrs_command').collection('user_events');
     const commandBus = new CommandBus();
     const queryBus = new QueryBus();
     const eventBus = new EventBus(commandBus);
-    const eventPublisher = new EventPublisher(eventBus);
+    const userEventPublisher = new EventPublisher(eventBus, new MongoEventStore(userEventCollection));
     const userMapper = new UserMapper();
 
     // repositories
@@ -42,9 +42,9 @@ const start = async () => {
     // sagas
     const userSaga = new UserSaga();
 
-    commandBus.registerHandler(new UserCreateCommandHandler(eventPublisher, userRepository));
-    commandBus.registerHandler(new UserCreateRollbackCommandHandler(eventPublisher, userRepository));
-    commandBus.registerHandler(new UserDeleteCommandHandler(eventPublisher, userRepository));
+    commandBus.registerHandler(new UserCreateCommandHandler(userEventPublisher, userRepository));
+    commandBus.registerHandler(new UserCreateRollbackCommandHandler(userEventPublisher, userRepository));
+    commandBus.registerHandler(new UserDeleteCommandHandler(userEventPublisher, userRepository));
     queryBus.registerQuery(new GetUsersQueryHandler(userRepository));
     queryBus.registerQuery(new RetrieveUserQueryHandler(userRepository));
     await Promise.all([

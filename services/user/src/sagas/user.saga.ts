@@ -10,7 +10,6 @@ export class UserSaga {
       .pipe(
         ofType(BalanceCreatedFailEvent),
         map((event) => {
-          console.log('Saga BalanceCreatedFail is work');
           return new UserCreateRollbackCommand(event.balance.getUser());
         }),
       );

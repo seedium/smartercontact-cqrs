@@ -1,4 +1,4 @@
-import { RpcApp, CommandBus, EventPublisher, EventBus, QueryBus, rpcController } from 'core';
+import { RpcApp, CommandBus, EventPublisher, EventBus, QueryBus, rpcController, MongoEventStore } from 'core';
 import * as grpc from 'grpc';
 import { UserServiceClient, BillingServiceService } from 'protos';
 import { commandDb, viewDb } from './lib';
@@ -18,16 +18,21 @@ const start = async () => {
       commandDb.connect(),
       viewDb.connect(),
     ]);
+    const balanceEventCollection = commandDb.db('cqrs_command').collection('balance_events');
+    const cardEventCollection = commandDb.db('cqrs_command').collection('card_events');
     const commandBus = new CommandBus();
     const queryBus = new QueryBus();
     const eventBus = new EventBus(commandBus);
-    const eventPublisher = new EventPublisher(eventBus);
+    const balanceEventPublisher = new EventPublisher(eventBus, new MongoEventStore(balanceEventCollection));
+    const cardEventPublisher = new EventPublisher(eventBus, new MongoEventStore(cardEventCollection));
     const balanceMapper = new BalanceMapper();
     const cardMapper = new CardMapper();
 
     // repositories
     const balanceRepository = new BalanceRepository(balanceMapper);
     const cardRepository = new CardRepository(cardMapper);
+
+    // services
     const userServiceClient = new UserServiceClient('localhost:3000', grpc.credentials.createInsecure());
     const userService = new UserService(userServiceClient);
 
@@ -37,10 +42,10 @@ const start = async () => {
 
     queryBus.registerQuery(new ListCardsQueryHandler(cardRepository));
     queryBus.registerQuery(new RetrieveBalanceQueryHandler(balanceRepository));
-    commandBus.registerHandler(new CreateUserCardCommandHandler(eventPublisher, cardRepository, userService));
+    commandBus.registerHandler(new CreateUserCardCommandHandler(cardEventPublisher, cardRepository, userService));
     await Promise.all([
-      new UserCreatedEventHandler(eventPublisher),
-      new UserDeletedEventHandler(eventPublisher, balanceRepository),
+      new UserCreatedEventHandler(balanceEventPublisher),
+      new UserDeletedEventHandler(balanceEventPublisher, balanceRepository),
       new BalanceCreatedEventHandler(balanceRepository),
       new BalanceDeletedEventHandler(balanceRepository),
       new CardCreatedEventHandler(cardRepository),
@@ -50,7 +55,7 @@ const start = async () => {
     );
     app.server.addService(BillingServiceService, {
       retrieveBalance: rpcController(balanceController.retrieveBalance.bind(balanceController)),
-      createCard: rpcController(cardController.create.bind(balanceController)),
+      createCard: rpcController(cardController.create.bind(cardController)),
       listCard: rpcController(cardController.list.bind(cardController)),
     })
     app.start();

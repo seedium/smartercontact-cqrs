@@ -1,6 +1,6 @@
 import { UserDeletedEvent, UserDeletedFailEvent } from '@sc/events';
 import { IEventHandler } from 'core';
-import { UserRepository } from '../repositories';
+import { UserRepository } from '../../repositories';
 
 export class UserDeletedEventHandler implements IEventHandler {
   public event = UserDeletedEvent;
