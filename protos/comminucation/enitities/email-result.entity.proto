@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message Envelope {
+  string from = 1;
+  repeated string to = 2;
+}
+
+message EmailSentResult {
+  repeated string accepted = 1;
+  repeated string rejected = 2;
+  int32 envelope_time = 3;
+  string response = 4;
+  string messageId = 5;
+  Envelope envelope = 6;
+}

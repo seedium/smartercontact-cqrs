@@ -3,6 +3,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "start:infrastructure": "node scripts/start-infrastructure.js",
+    "clear:database": "node scripts/clear-database.js",
     "compile": "node scripts/compile.js"
   },
   "devDependencies": {

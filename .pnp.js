@@ -39,28 +39,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/protos"
       },
       {
-        "name": "analytics",
-        "reference": "workspace:services/analytics"
-      },
-      {
         "name": "billing",
         "reference": "workspace:services/billing"
       },
       {
-        "name": "campaign",
-        "reference": "workspace:services/campaign"
-      },
-      {
         "name": "communication",
         "reference": "workspace:services/communication"
-      },
-      {
-        "name": "contact",
-        "reference": "workspace:services/contact"
-      },
-      {
-        "name": "message",
-        "reference": "workspace:services/message"
       },
       {
         "name": "user",
@@ -71,14 +55,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "ignorePatternData": "(^(?:\\.yarn\\/sdks(?:\\/(?!\\.)(?:(?:(?!(?:^|\\/)\\.).)*?)|$))$)",
     "fallbackExclusionList": [
       ["@sc/events", ["workspace:packages/events"]],
-      ["analytics", ["workspace:services/analytics"]],
       ["billing", ["workspace:services/billing"]],
-      ["campaign", ["workspace:services/campaign"]],
       ["communication", ["workspace:services/communication"]],
-      ["contact", ["workspace:services/contact"]],
       ["core", ["workspace:packages/core"]],
       ["mappers", ["workspace:packages/mappers"]],
-      ["message", ["workspace:services/message"]],
       ["protos", ["workspace:packages/protos"]],
       ["smartercontact-cqrs", ["workspace:."]],
       ["user", ["workspace:services/user"]]
@@ -187,6 +167,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@types/nodemailer", [
+        ["npm:6.4.0", {
+          "packageLocation": "./.yarn/cache/@types-nodemailer-npm-6.4.0-394262773c-490553de54.zip/node_modules/@types/nodemailer/",
+          "packageDependencies": [
+            ["@types/nodemailer", "npm:6.4.0"],
+            ["@types/node", "npm:14.6.4"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@types/pino", [
         ["npm:6.3.0", {
           "packageLocation": "./.yarn/cache/@types-pino-npm-6.3.0-963164cfc9-7a1cb8ed2f.zip/node_modules/@types/pino/",
@@ -257,19 +247,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["uri-js", "npm:4.4.0"]
           ],
           "linkType": "HARD",
-        }]
-      ]],
-      ["analytics", [
-        ["workspace:services/analytics", {
-          "packageLocation": "./services/analytics/",
-          "packageDependencies": [
-            ["analytics", "workspace:services/analytics"],
-            ["@types/node", "npm:14.6.4"],
-            ["core", "workspace:packages/core"],
-            ["dotenv", "npm:8.2.0"],
-            ["tslib", "npm:2.0.1"]
-          ],
-          "linkType": "SOFT",
         }]
       ]],
       ["ansi-bgblack", [
@@ -869,6 +846,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mappers", "workspace:packages/mappers"],
             ["mongodb", "npm:3.6.2"],
             ["protos", "workspace:packages/protos"],
+            ["rxjs", "npm:6.6.3"],
             ["tslib", "npm:2.0.1"],
             ["uuid", "npm:8.3.0"]
           ],
@@ -967,19 +945,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["camelcase", "npm:5.0.0"]
           ],
           "linkType": "HARD",
-        }]
-      ]],
-      ["campaign", [
-        ["workspace:services/campaign", {
-          "packageLocation": "./services/campaign/",
-          "packageDependencies": [
-            ["campaign", "workspace:services/campaign"],
-            ["@types/node", "npm:14.6.4"],
-            ["core", "workspace:packages/core"],
-            ["dotenv", "npm:8.2.0"],
-            ["tslib", "npm:2.0.1"]
-          ],
-          "linkType": "SOFT",
         }]
       ]],
       ["caseless", [
@@ -1141,9 +1106,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./services/communication/",
           "packageDependencies": [
             ["communication", "workspace:services/communication"],
+            ["@sc/events", "workspace:packages/events"],
             ["@types/node", "npm:14.6.4"],
+            ["@types/nodemailer", "npm:6.4.0"],
             ["core", "workspace:packages/core"],
             ["dotenv", "npm:8.2.0"],
+            ["nodemailer", "npm:6.4.13"],
+            ["protos", "workspace:packages/protos"],
+            ["rxjs", "npm:6.6.3"],
             ["tslib", "npm:2.0.1"]
           ],
           "linkType": "SOFT",
@@ -1184,19 +1154,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["console-control-strings", "npm:1.1.0"]
           ],
           "linkType": "HARD",
-        }]
-      ]],
-      ["contact", [
-        ["workspace:services/contact", {
-          "packageLocation": "./services/contact/",
-          "packageDependencies": [
-            ["contact", "workspace:services/contact"],
-            ["@types/node", "npm:14.6.4"],
-            ["core", "workspace:packages/core"],
-            ["dotenv", "npm:8.2.0"],
-            ["tslib", "npm:2.0.1"]
-          ],
-          "linkType": "SOFT",
         }]
       ]],
       ["cookie", [
@@ -2911,19 +2868,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["message", [
-        ["workspace:services/message", {
-          "packageLocation": "./services/message/",
-          "packageDependencies": [
-            ["message", "workspace:services/message"],
-            ["@types/node", "npm:14.6.4"],
-            ["core", "workspace:packages/core"],
-            ["dotenv", "npm:8.2.0"],
-            ["tslib", "npm:2.0.1"]
-          ],
-          "linkType": "SOFT",
-        }]
-      ]],
       ["micromatch", [
         ["npm:3.1.10", {
           "packageLocation": "./.yarn/cache/micromatch-npm-3.1.10-016e80c79d-a60e73539a.zip/node_modules/micromatch/",
@@ -3206,6 +3150,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["rimraf", "npm:2.7.1"],
             ["semver", "npm:5.7.1"],
             ["tar", "npm:4.4.13"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["nodemailer", [
+        ["npm:6.4.13", {
+          "packageLocation": "./.yarn/unplugged/nodemailer-npm-6.4.13-a569f25245/node_modules/nodemailer/",
+          "packageDependencies": [
+            ["nodemailer", "npm:6.4.13"]
           ],
           "linkType": "HARD",
         }]

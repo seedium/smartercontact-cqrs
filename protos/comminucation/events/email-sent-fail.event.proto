@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "comminucation/enitities/email-result.entity.proto";
+
+message EmailSentFailEvent {
+  EmailSentResult result = 1;
+}

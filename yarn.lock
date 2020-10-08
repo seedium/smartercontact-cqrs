@@ -72,6 +72,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/nodemailer@npm:^6.4.0":
+  version: 6.4.0
+  resolution: "@types/nodemailer@npm:6.4.0"
+  dependencies:
+    "@types/node": "*"
+  checksum: 490553de5408b30793246cdd1476885a26649d1403d9530a84730d87644aa515ad52a1eacda4f4fc2dcfd40762d737007fffbf1bf40ed62d628ae8ef04c8a87b
+  languageName: node
+  linkType: hard
+
 "@types/pino-std-serializers@npm:*":
   version: 2.4.1
   resolution: "@types/pino-std-serializers@npm:2.4.1"
@@ -133,17 +142,6 @@ __metadata:
   checksum: 50d72b0a10326732072f5481b1b6bd5a43f8d770878b8f88ba5bb232abb745cefbf7f87a0e64679bd477d4a8bba0b3aea084675bd34943db5279c15907ee658f
   languageName: node
   linkType: hard
-
-"analytics@workspace:services/analytics":
-  version: 0.0.0-use.local
-  resolution: "analytics@workspace:services/analytics"
-  dependencies:
-    "@types/node": ^14.6.4
-    core: "workspace:packages/core"
-    dotenv: ^8.2.0
-    tslib: ^2.0.1
-  languageName: unknown
-  linkType: soft
 
 "ansi-bgblack@npm:^0.1.1":
   version: 0.1.1
@@ -674,6 +672,7 @@ __metadata:
     mappers: "workspace:packages/mappers"
     mongodb: ^3.6.2
     protos: "workspace:packages/protos"
+    rxjs: ^6.6.3
     tslib: ^2.0.1
     uuid: ^8.3.0
   languageName: unknown
@@ -763,17 +762,6 @@ __metadata:
   checksum: 311182686b3b87ac07851d6bc8c1327d55ef5fe95403bce97e21696dfe666dec70cf2b008593c00ae69a2b84e0074e4c130157a41db1d237f6fe5686cbf870b3
   languageName: node
   linkType: hard
-
-"campaign@workspace:services/campaign":
-  version: 0.0.0-use.local
-  resolution: "campaign@workspace:services/campaign"
-  dependencies:
-    "@types/node": ^14.6.4
-    core: "workspace:packages/core"
-    dotenv: ^8.2.0
-    tslib: ^2.0.1
-  languageName: unknown
-  linkType: soft
 
 "caseless@npm:~0.12.0":
   version: 0.12.0
@@ -920,9 +908,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "communication@workspace:services/communication"
   dependencies:
+    "@sc/events": "workspace:packages/events"
     "@types/node": ^14.6.4
+    "@types/nodemailer": ^6.4.0
     core: "workspace:packages/core"
     dotenv: ^8.2.0
+    nodemailer: ^6.4.13
+    protos: "workspace:packages/protos"
+    rxjs: ^6.6.3
     tslib: ^2.0.1
   languageName: unknown
   linkType: soft
@@ -956,17 +949,6 @@ __metadata:
   checksum: 58a404d951bf270494fb91e136cf064652c1208ccedac23e4da24e6a3a3933998f302cadc45cbf6582a007a4aa44dab944e84056b24e3b1964e9a28aeedf76c9
   languageName: node
   linkType: hard
-
-"contact@workspace:services/contact":
-  version: 0.0.0-use.local
-  resolution: "contact@workspace:services/contact"
-  dependencies:
-    "@types/node": ^14.6.4
-    core: "workspace:packages/core"
-    dotenv: ^8.2.0
-    tslib: ^2.0.1
-  languageName: unknown
-  linkType: soft
 
 "cookie@npm:^0.4.0":
   version: 0.4.1
@@ -2478,17 +2460,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"message@workspace:services/message":
-  version: 0.0.0-use.local
-  resolution: "message@workspace:services/message"
-  dependencies:
-    "@types/node": ^14.6.4
-    core: "workspace:packages/core"
-    dotenv: ^8.2.0
-    tslib: ^2.0.1
-  languageName: unknown
-  linkType: soft
-
 "micromatch@npm:^3.1.4":
   version: 3.1.10
   resolution: "micromatch@npm:3.1.10"
@@ -2764,6 +2735,13 @@ __metadata:
   bin:
     node-pre-gyp: ./bin/node-pre-gyp
   checksum: 6a0e20bda32519e8574ec0c594cc4ec2085976b05f810cf811893ffb24884ec57eb6f8d114f4c21b995e48e0e46aead7616502d4750a407266e84be9a89a8ae6
+  languageName: node
+  linkType: hard
+
+"nodemailer@npm:^6.4.13":
+  version: 6.4.13
+  resolution: "nodemailer@npm:6.4.13"
+  checksum: c5eeba3805bf94a3030b6ace5da62989d3d0cc170712d60700970e69d002a36a575bc9df339e8a336c3092a7ea777cae71b65135eeec146c3a568cd2f93a5b61
   languageName: node
   linkType: hard
 

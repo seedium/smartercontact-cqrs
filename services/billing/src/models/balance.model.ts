@@ -1,4 +1,4 @@
-import { BalanceCreatedEvent, BalanceDeletedEvent, BalanceCreatedFailEvent } from '@sc/events';
+import { BalanceCreatedEvent, BalanceDeletedEvent, BalanceCreatedFailEvent, BalanceDeletedFailEvent } from '@sc/events';
 import { AggregateRoot, IEventPublisher } from 'core';
 import { Balance as BalanceProto } from 'protos';
 import { createBalanceId } from '../helpers/create-balance-id';
@@ -19,5 +19,8 @@ export class Balance extends AggregateRoot {
   }
   public async delete(): Promise<void> {
     await this.apply(new BalanceDeletedEvent(this.balance));
+  }
+  public async deleteFail(): Promise<void> {
+    await this.apply(new BalanceDeletedFailEvent(this.balance));
   }
 }

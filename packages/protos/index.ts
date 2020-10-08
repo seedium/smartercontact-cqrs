@@ -28,3 +28,8 @@ export * from './user/events/user-created-fail.event_pb';
 export * from './user/events/user-deleted.event_pb';
 export * from './user/events/user-deleted-fail.event_pb';
 export * from './user/service_grpc_pb';
+
+/* Communication */
+export * from './comminucation/enitities/email-result.entity_pb';
+export * from './comminucation/events/email-sent.event_pb';
+export * from './comminucation/events/email-sent-fail.event_pb';

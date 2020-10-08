@@ -16,7 +16,14 @@ export class CommandBus {
     if (!handler) {
       throw new Error(`${commandName} doesn't have any handlers`);
     }
-    return handler.execute(command) as T;
+    try {
+      return await handler.execute(command) as T;
+    } catch (err) {
+      if (handler.onFail) {
+        await handler.onFail(command);
+      }
+      throw err;
+    }
   }
   protected getCommandName(command: Type<ICommand> | ICommand): string {
     if (command instanceof Function) {

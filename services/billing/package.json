@@ -17,6 +17,7 @@
     "mappers": "workspace:packages/mappers",
     "mongodb": "^3.6.2",
     "protos": "workspace:packages/protos",
+    "rxjs": "^6.6.3",
     "uuid": "^8.3.0"
   }
 }

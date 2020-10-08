@@ -8,8 +8,9 @@ import { ListCardsQueryHandler, RetrieveBalanceQueryHandler } from './queries/ha
 import { BalanceCreatedEventHandler, BalanceDeletedEventHandler, CardCreatedEventHandler } from './events/billing';
 import { UserCreatedEventHandler, UserDeletedEventHandler } from './events/user';
 import { BalanceMapper, CardMapper } from 'mappers';
-import { CreateUserCardCommandHandler } from './commands/handlers';
+import { CreateUserCardCommandHandler, CreateBalanceCommandHandler, DeleteBalanceCommandHandler } from './commands/handlers';
 import { UserService } from './services';
+import { UserSaga } from './sagas';
 
 const start = async () => {
   const app = new RpcApp();
@@ -27,6 +28,7 @@ const start = async () => {
     const cardEventPublisher = new EventPublisher(eventBus, new MongoEventStore(cardEventCollection));
     const balanceMapper = new BalanceMapper();
     const cardMapper = new CardMapper();
+    const userSaga = new UserSaga();
 
     // repositories
     const balanceRepository = new BalanceRepository(balanceMapper);
@@ -43,9 +45,11 @@ const start = async () => {
     queryBus.registerQuery(new ListCardsQueryHandler(cardRepository));
     queryBus.registerQuery(new RetrieveBalanceQueryHandler(balanceRepository));
     commandBus.registerHandler(new CreateUserCardCommandHandler(cardEventPublisher, cardRepository, userService));
+    commandBus.registerHandler(new CreateBalanceCommandHandler(balanceEventPublisher));
+    commandBus.registerHandler(new DeleteBalanceCommandHandler(balanceEventPublisher, balanceRepository));
     await Promise.all([
-      new UserCreatedEventHandler(balanceEventPublisher),
-      new UserDeletedEventHandler(balanceEventPublisher, balanceRepository),
+      new UserCreatedEventHandler(),
+      new UserDeletedEventHandler(),
       new BalanceCreatedEventHandler(balanceRepository),
       new BalanceDeletedEventHandler(balanceRepository),
       new CardCreatedEventHandler(cardRepository),
@@ -53,6 +57,9 @@ const start = async () => {
       (event) =>
         eventBus.registerEventHandler(`billing.${event.event.event}`, event)),
     );
+    eventBus.registerSaga(userSaga.userCreated);
+    eventBus.registerSaga(userSaga.userDeleted);
+
     app.server.addService(BillingServiceService, {
       retrieveBalance: rpcController(balanceController.retrieveBalance.bind(balanceController)),
       createCard: rpcController(cardController.create.bind(cardController)),
