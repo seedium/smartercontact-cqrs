@@ -1,29 +1,33 @@
 import * as nodemailer from 'nodemailer';
-import { ISendEmailOptions, ITemplateEngineService } from '../interfaces';
+import { EmailSentResult, Envelope } from 'protos';
+import { IEmailDriver, ISendEmailOptions, ITemplateEngineService } from '../interfaces';
 
 export class EmailService {
-  private readonly _transporter: nodemailer.Transporter;
-
   constructor(
     private readonly _templateEngine: ITemplateEngineService,
-  ) {
-    this._transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 587,
-      auth: {
-        user: process.env.SMTP_USERNAME,
-        pass: process.env.SMTP_PASSWORD,
-      },
-    });
-  }
-  public async sendEmail(options: ISendEmailOptions) {
+    private readonly _driver: IEmailDriver<nodemailer.SentMessageInfo>,
+  ) {}
+  public async sendEmail(options: ISendEmailOptions): Promise<EmailSentResult> {
     const { text, html } = await this._templateEngine.compile(options.template);
-    return await this._transporter.sendMail({
+    const result = await this._driver.sendEmail({
       from: process.env.SMTP_FROM,
       to: options.to,
       subject: options.subject,
       text,
       html,
     });
+    const envelope = new Envelope();
+    envelope.setFrom(result.envelope.from);
+    envelope.setToList(result.envelope.to);
+
+    const emailSentResult = new EmailSentResult();
+    emailSentResult.setAcceptedList(result.accepted);
+    emailSentResult.setRejectedList(result.rejected);
+    emailSentResult.setEnvelopeTime(result.envelopeTime);
+    emailSentResult.setResponse(result.response);
+    emailSentResult.setMessageid(result.messageId);
+    emailSentResult.setEnvelope(envelope);
+
+    return emailSentResult;
   }
 }

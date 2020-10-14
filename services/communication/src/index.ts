@@ -8,6 +8,7 @@ import {
 } from './events';
 import { BalanceSaga, UserSaga } from './sagas';
 import { EmailService, TemplateEngineService } from './services';
+import { NodemailerDriver } from './drivers';
 
 const start = async () => {
   try {
@@ -22,7 +23,8 @@ const start = async () => {
     const emailEventPublisher = new EventPublisher(eventBus, new MongoEventStore(emailEventCollection));
     // services
     const templateEngineService = new TemplateEngineService();
-    const emailService = new EmailService(templateEngineService);
+    const nodemailerDriver = new NodemailerDriver();
+    const emailService = new EmailService(templateEngineService, nodemailerDriver);
 
     commandBus.registerHandler(new SendEmailCommandHandler(emailEventPublisher, emailService));
     await Promise.all([

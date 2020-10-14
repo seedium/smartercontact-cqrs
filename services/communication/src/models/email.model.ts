@@ -3,7 +3,7 @@ import { EmailSentEvent, EmailSentFailEvent } from '@sc/events';
 import { EmailSentResult } from 'protos';
 
 export class Email extends AggregateRoot {
-  public async sendEmail(result: EmailSentResult) {
+  public async emailSent(result: EmailSentResult) {
     await this.apply(new EmailSentEvent(result));
   }
   public async sendEmailFail() {

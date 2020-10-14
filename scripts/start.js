@@ -48,13 +48,16 @@ const killer = (child) => {
 }
 
 const run = (service) => {
+  const log = (data) => {
+    console.log(`${COLORS.yellow}[${service}]${COLORS.reset} ` + data.toString());
+  }
   const process = spawn('yarn', ['workspace', service, 'run', 'start']);
   process.stdout.setEncoding('utf8');
   process.stdout.on('data', function(data) {
-    console.log(`${COLORS.yellow}[${service}]${COLORS.reset} ` + data.toString());
+    log(data);
   });
   process.stderr.on('data', function (data) {
-    console.log(`${COLORS.yellow}[${service}]${COLORS.reset} ` + data.toString());
+    log(data);
   });
   const exitPromise = new Promise(resolve => process.on('exit', resolve));
 
@@ -77,19 +80,31 @@ class BuilderManager {
   serviceKillers = [];
   async start() {
     for (const [packageName, packageProject] of Object.entries(packagesProjects)) {
+      await this.watchPackage(packageName, packageProject);
+    }
+    await this.startServices();
+  }
+  async watchPackage(packageName, packageProject) {
+    return new Promise((resolve, reject) => {
       const watch = new TscWatchClient();
-      watch.on('success', async () => {
-        console.log(`[${packageName}] Successfully built`);
+      watch.on('success', this.onPackageBuilt(resolve, packageName));
+      watch.on('compile_errors', () => {
+        return reject(new Error(`[${packageName}] compiled with error`));
+      });
+      watch.start('--noClear', '--project', packageProject);
+    });
+  }
+  onPackageBuilt = (resolve, packageName) => {
+    return async () => {
+      console.log(`[${packageName}] Successfully built`);
+      const isShouldRestartServices = !!this.servicesWatches.length;
+      if (isShouldRestartServices) {
         await this.killServices();
         await this.startServices();
-      });
-      watch.on('compile_errors', () => {
-        console.error(`[${packageName}] Compilation error`);
-      });
-      watch.start('--project', packageProject);
-    }
+      }
+      return resolve();
+    };
   }
-
   async startServices() {
     const servicesPath = 'services';
     const servicesProjects = await getFolders(servicesPath);
