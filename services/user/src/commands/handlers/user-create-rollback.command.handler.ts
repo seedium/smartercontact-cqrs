@@ -12,10 +12,16 @@ export class UserCreateRollbackCommandHandler implements ICommandHandler<UserPro
   ) {}
   public async execute(command: UserCreateRollbackCommand) {
     const user = await this._userRepository.retrieve(command.idUser);
+    let userAggregate: User;
     if (!user) {
-      return;
+      userAggregate = this._eventPublisher.mergeObjectContext(
+        new User(new UserProto().setId(command.idUser))
+      );
+    } else {
+      userAggregate = this._eventPublisher.mergeObjectContext(
+        new User(user),
+      );
     }
-    const userAggregate: User = this._eventPublisher.mergeObjectContext(new User(user));
     await userAggregate.createRollback();
     return userAggregate.user;
   }

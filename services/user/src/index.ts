@@ -53,7 +53,7 @@ const start = async () => {
     queryBus.registerQuery(new RetrieveUserQueryHandler(userRepository));
 
     await Promise.all([
-      new UserCreatedEventHandler(userRepository),
+      new UserCreatedEventHandler(userEventPublisher, userRepository),
       new UserCreatedFailEventHandler(userRepository),
       new UserDeletedEventHandler(userRepository),
       new UserDeletedFailEventHandler(userRepository),
@@ -63,6 +63,7 @@ const start = async () => {
       (event) =>
         eventBus.registerEventHandler(`user`, event)),
     );
+    eventBus.registerSaga(userSaga.userCreatedFail);
     eventBus.registerSaga(userSaga.balanceCreatedFail);
     eventBus.registerSaga(userSaga.contactCreatedFail);
 

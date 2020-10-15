@@ -29,4 +29,11 @@ export class CreateUserCardCommandHandler implements ICommandHandler<CardProto> 
     await cardAggregate.create();
     return cardAggregate.card;
   }
+  public async onFail({ card, idUser }: CreateUserCardCommand) {
+    card.setUser(idUser);
+    const cardAggregate = this._eventPublisher.mergeObjectContext(
+      new Card(card),
+    );
+    await cardAggregate.createFail();
+  }
 }

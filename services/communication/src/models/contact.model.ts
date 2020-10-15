@@ -6,11 +6,12 @@ import { createContactId } from '../helpers/create-contact-id';
 export class Contact extends AggregateRoot {
   constructor(public readonly contact: ContactProto) {
     super();
-    this.contact.setId(this.contact.getId() || createContactId());
     this._aggregateId = this.contact.getId();
     this._aggregateVersion = 1;
   }
   public async create(): Promise<Contact> {
+    this.contact.setId(this.contact.getId() || createContactId());
+    this._aggregateId = this.contact.getId();
     await this.apply(new ContactCreatedEvent(this.contact));
     return this;
   }

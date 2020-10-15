@@ -7,6 +7,7 @@ import {
   UserCreatedFailEventHandler,
   BalanceCreatedEventHandler,
   ContactCreatedEventHandler,
+  ContactCreatedFailEventHandler,
 } from './events';
 import { BalanceSaga, UserSaga } from './sagas';
 import { EmailService, TemplateEngineService } from './services';
@@ -51,6 +52,7 @@ const start = async () => {
       new UserCreatedFailEventHandler(),
       new BalanceCreatedEventHandler(),
       new ContactCreatedEventHandler(contactRepository, contactEventPublisher),
+      new ContactCreatedFailEventHandler(contactRepository, contactEventPublisher),
     ].map(
       (event) =>
         eventBus.registerEventHandler(`communication`, event),

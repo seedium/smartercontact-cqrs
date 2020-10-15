@@ -66,7 +66,7 @@ const start = async () => {
       new UserCreatedEventHandler(),
       new UserCreatedFailEventHandler(),
       new UserDeletedEventHandler(),
-      new BalanceCreatedEventHandler(balanceRepository),
+      new BalanceCreatedEventHandler(balanceEventPublisher, balanceRepository),
       new BalanceCreatedFailEventHandler(balanceRepository),
       new BalanceDeletedEventHandler(balanceRepository),
       new CardCreatedEventHandler(cardRepository),

@@ -29,4 +29,10 @@ export class ContactRepository {
     }
     return this._contactMapper.fromObject(result);
   }
+  public async delete(idContact: string): Promise<void> {
+    await this._collection.deleteOne({ id: idContact });
+  }
+  public async deleteByUser(idUser: string): Promise<void> {
+    await this._collection.deleteOne({ user: idUser });
+  }
 }
