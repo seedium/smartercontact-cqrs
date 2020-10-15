@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs';
 import { ICommand, ofType } from 'core';
-import { UserCreatedEvent, UserCreatedFailEvent } from '@sc/events';
+import { UserCreatedEvent, UserCreatedFailEvent, UserCreatedRollbackEvent } from '@sc/events';
 import { map } from 'rxjs/operators';
-import { SendEmailCommand } from '../commands/impl';
+import { CreateContactCommand, CreateContactRollbackCommand, SendEmailCommand } from '../commands/impl';
 
 export class UserSaga {
-  public userCreated(events$: Observable<any>): Observable<ICommand> {
+  public userCreatedSendEmail(events$: Observable<any>): Observable<ICommand> {
     return events$
       .pipe(
         ofType(UserCreatedEvent),
@@ -15,13 +15,31 @@ export class UserSaga {
             subject: 'Welcome to CQRS microservices',
             template: 'welcome_user',
           });
-        })
+        }),
+      );
+  }
+  public userCreatedCreateContact(events$: Observable<any>): Observable<ICommand> {
+    return events$
+      .pipe(
+        ofType(UserCreatedEvent),
+        map((event) => {
+          return new CreateContactCommand(event.user.getId());
+        }),
+      );
+  }
+  public userCreatedRollback(events$: Observable<any>): Observable<ICommand> {
+    return events$
+      .pipe(
+        ofType(UserCreatedRollbackEvent),
+        map((event) => {
+          return new CreateContactRollbackCommand(event.user.getId());
+        }),
       );
   }
   public userCreatedFail(events$: Observable<any>): Observable<ICommand> {
     return events$
       .pipe(
-        ofType(UserCreatedFailEvent),
+        ofType(UserCreatedRollbackEvent),
         map(() => {
           return new SendEmailCommand({
             to: 'k.zgara@seedium.io',

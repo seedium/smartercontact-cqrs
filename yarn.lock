@@ -913,6 +913,8 @@ __metadata:
     "@types/nodemailer": ^6.4.0
     core: "workspace:packages/core"
     dotenv: ^8.2.0
+    mappers: "workspace:packages/mappers"
+    mongodb: ^3.6.2
     nodemailer: ^6.4.13
     protos: "workspace:packages/protos"
     rxjs: ^6.6.3

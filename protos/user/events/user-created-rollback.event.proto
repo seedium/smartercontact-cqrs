@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "user/entities/user.entity.proto";
+
+message UserCreatedRollbackEvent {
+   User user = 1;
+}

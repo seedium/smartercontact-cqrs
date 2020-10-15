@@ -19,4 +19,8 @@ export class UserCreateCommandHandler implements ICommandHandler<UserProto> {
     await userAggregate.create();
     return userAggregate.user;
   }
+  public async onFail(command: UserCreateCommand): Promise<void> {
+    const user = this._eventPublisher.mergeObjectContext(new User(command.user));
+    await user.createFail();
+  }
 }

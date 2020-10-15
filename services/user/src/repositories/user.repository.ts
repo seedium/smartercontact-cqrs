@@ -14,8 +14,11 @@ export class UserRepository {
     const response = await this._collection.insertOne(this._userMapper.toObject(user));
     return this._userMapper.fromObject(response.ops[0]);
   }
-  public async retrieve(idUser: string): Promise<User> {
+  public async retrieve(idUser: string): Promise<User | null> {
     const user = await this._collection.findOne({ id: idUser });
+    if (!user) {
+      return null;
+    }
     return this._userMapper.fromObject(user);
   }
   public async delete(idUser: string): Promise<void> {

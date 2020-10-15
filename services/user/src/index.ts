@@ -8,6 +8,7 @@ import {
   UserCreateCommandHandler,
   UserCreateRollbackCommandHandler,
   UserDeleteCommandHandler,
+  UserDeleteRollbackCommandHandler,
 } from './commands/handlers';
 import {
   UserCreatedEventHandler,
@@ -15,6 +16,7 @@ import {
   UserDeletedEventHandler,
   UserDeletedFailEventHandler,
   BalanceCreatedFailEventHandler,
+  ContactCreatedFailEventHandler,
 } from './events';
 import { GetUsersQueryHandler, RetrieveUserQueryHandler } from './queries/handlers';
 import { UserSaga } from './sagas';
@@ -45,19 +47,24 @@ const start = async () => {
     commandBus.registerHandler(new UserCreateCommandHandler(userEventPublisher, userRepository));
     commandBus.registerHandler(new UserCreateRollbackCommandHandler(userEventPublisher, userRepository));
     commandBus.registerHandler(new UserDeleteCommandHandler(userEventPublisher, userRepository));
+    commandBus.registerHandler(new UserDeleteRollbackCommandHandler(userEventPublisher, userRepository));
+
     queryBus.registerQuery(new GetUsersQueryHandler(userRepository));
     queryBus.registerQuery(new RetrieveUserQueryHandler(userRepository));
+
     await Promise.all([
       new UserCreatedEventHandler(userRepository),
       new UserCreatedFailEventHandler(userRepository),
       new UserDeletedEventHandler(userRepository),
       new UserDeletedFailEventHandler(userRepository),
       new BalanceCreatedFailEventHandler(),
+      new ContactCreatedFailEventHandler(),
     ].map(
       (event) =>
-        eventBus.registerEventHandler(`user.${event.event.event}`, event)),
+        eventBus.registerEventHandler(`user`, event)),
     );
     eventBus.registerSaga(userSaga.balanceCreatedFail);
+    eventBus.registerSaga(userSaga.contactCreatedFail);
 
     app.server.addService(UserServiceService, {
       retrieve: rpcController(userController.retrieve.bind(userController)),

@@ -1,5 +1,4 @@
 import { EventPublisher, ICommandHandler } from 'core';
-import { Balance as BalanceDto } from 'protos';
 import { DeleteBalanceCommand } from '../impl';
 import { Balance } from '../../models';
 import { BalanceRepository } from '../../repositories';
@@ -20,11 +19,5 @@ export class DeleteBalanceCommandHandler implements ICommandHandler {
       new Balance(balance),
     );
     await balanceAggregate.delete();
-  }
-  public async onFail(command: DeleteBalanceCommand) {
-    const balance = this._eventPublisher.mergeObjectContext(
-      new Balance(new BalanceDto()),
-    );
-    await balance.deleteFail();
   }
 }

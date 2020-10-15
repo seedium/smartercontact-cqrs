@@ -15,12 +15,18 @@ export class BalanceRepository {
     const result = await this._collection.insertOne(balanceDto);
     return this._balanceMapper.fromObject(result.ops[0]);
   }
-  public async retrieve(id: string): Promise<Balance> {
+  public async retrieve(id: string): Promise<Balance | null> {
     const balance = await this._collection.findOne({ id });
+    if (!balance) {
+      return null;
+    }
     return this._balanceMapper.fromObject(balance);
   }
-  public async retrieveByUser(idUser: string): Promise<Balance> {
+  public async retrieveByUser(idUser: string): Promise<Balance | null> {
     const balance = await this._collection.findOne({ user: idUser });
+    if (!balance) {
+      return null;
+    }
     return this._balanceMapper.fromObject(balance);
   }
   public async delete(idBalance: string): Promise<void> {

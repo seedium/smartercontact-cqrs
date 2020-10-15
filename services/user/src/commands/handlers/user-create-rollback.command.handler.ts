@@ -12,6 +12,9 @@ export class UserCreateRollbackCommandHandler implements ICommandHandler<UserPro
   ) {}
   public async execute(command: UserCreateRollbackCommand) {
     const user = await this._userRepository.retrieve(command.idUser);
+    if (!user) {
+      return;
+    }
     const userAggregate: User = this._eventPublisher.mergeObjectContext(new User(user));
     await userAggregate.createRollback();
     return userAggregate.user;

@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "communication/entities/contact.entity.proto";
+
+message ContactCreatedFail {
+  Contact contact = 1;
+}

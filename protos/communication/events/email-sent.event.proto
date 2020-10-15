@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-import "comminucation/enitities/email-result.entity.proto";
+import "communication/entities/email-result.entity.proto";
 
 message EmailSentEvent {
   EmailSentResult result = 1;

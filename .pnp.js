@@ -1111,6 +1111,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/nodemailer", "npm:6.4.0"],
             ["core", "workspace:packages/core"],
             ["dotenv", "npm:8.2.0"],
+            ["mappers", "workspace:packages/mappers"],
+            ["mongodb", "npm:3.6.2"],
             ["nodemailer", "npm:6.4.13"],
             ["protos", "workspace:packages/protos"],
             ["rxjs", "npm:6.6.3"],

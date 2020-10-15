@@ -5,10 +5,24 @@ import { commandDb, viewDb } from './lib';
 import { BalanceController, CardController } from './controllers';
 import { BalanceRepository, CardRepository } from './repositories';
 import { ListCardsQueryHandler, RetrieveBalanceQueryHandler } from './queries/handlers';
-import { BalanceCreatedEventHandler, BalanceDeletedEventHandler, CardCreatedEventHandler } from './events/billing';
-import { UserCreatedEventHandler, UserDeletedEventHandler } from './events/user';
+import {
+  BalanceCreatedEventHandler,
+  BalanceCreatedFailEventHandler,
+  BalanceDeletedEventHandler,
+  CardCreatedEventHandler,
+} from './events/billing';
+import {
+  UserCreatedEventHandler,
+  UserCreatedFailEventHandler,
+  UserDeletedEventHandler,
+} from './events/user';
 import { BalanceMapper, CardMapper } from 'mappers';
-import { CreateUserCardCommandHandler, CreateBalanceCommandHandler, DeleteBalanceCommandHandler } from './commands/handlers';
+import {
+  CreateUserCardCommandHandler,
+  CreateBalanceCommandHandler,
+  CreateBalanceRollbackCommandHandler,
+  DeleteBalanceCommandHandler,
+} from './commands/handlers';
 import { UserService } from './services';
 import { UserSaga } from './sagas';
 
@@ -46,18 +60,22 @@ const start = async () => {
     queryBus.registerQuery(new RetrieveBalanceQueryHandler(balanceRepository));
     commandBus.registerHandler(new CreateUserCardCommandHandler(cardEventPublisher, cardRepository, userService));
     commandBus.registerHandler(new CreateBalanceCommandHandler(balanceEventPublisher));
+    commandBus.registerHandler(new CreateBalanceRollbackCommandHandler(balanceEventPublisher, balanceRepository));
     commandBus.registerHandler(new DeleteBalanceCommandHandler(balanceEventPublisher, balanceRepository));
     await Promise.all([
       new UserCreatedEventHandler(),
+      new UserCreatedFailEventHandler(),
       new UserDeletedEventHandler(),
       new BalanceCreatedEventHandler(balanceRepository),
+      new BalanceCreatedFailEventHandler(balanceRepository),
       new BalanceDeletedEventHandler(balanceRepository),
       new CardCreatedEventHandler(cardRepository),
     ].map(
       (event) =>
-        eventBus.registerEventHandler(`billing.${event.event.event}`, event)),
+        eventBus.registerEventHandler(`billing`, event)),
     );
     eventBus.registerSaga(userSaga.userCreated);
+    eventBus.registerSaga(userSaga.userCreatedRollback);
     eventBus.registerSaga(userSaga.userDeleted);
 
     app.server.addService(BillingServiceService, {

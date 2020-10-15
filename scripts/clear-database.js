@@ -26,7 +26,9 @@ const clearBillingService = async () => {
 };
 const clearCommunicationService = async () => {
   const communicationMongoExec = new MongoExec('user');
-  await communicationMongoExec.removeCollection('cqrs_command_communication', 'communication_events');
+  await communicationMongoExec.removeCollection('cqrs_command_communication', 'email_events');
+  await communicationMongoExec.removeCollection('cqrs_command_communication', 'contact_events');
+  await communicationMongoExec.removeCollection('cqrs_view_communication', 'contacts');
 };
 
 const clearDatabase = async () => {
