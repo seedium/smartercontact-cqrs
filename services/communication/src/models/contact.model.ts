@@ -1,11 +1,12 @@
+import { v4 } from 'uuid';
 import { ContactCreatedEvent, ContactCreatedFailEvent, ContactCreatedRollbackEvent } from '@sc/events';
 import { AggregateRoot, IEventPublisher } from 'core';
 import { Contact as ContactProto } from 'protos';
 import { createContactId } from '../helpers/create-contact-id';
 
 export class Contact extends AggregateRoot {
-  constructor(public readonly contact: ContactProto) {
-    super();
+  constructor(public readonly contact: ContactProto, transactionId = v4()) {
+    super(transactionId);
     this._aggregateId = this.contact.getId();
     this._aggregateVersion = 1;
   }

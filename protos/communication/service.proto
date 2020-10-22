@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "communication/api/send-email-to-contact.api.proto";
+
+service CommunicationService {
+  rpc sendEmailToContact(SendEmailToContactOptions) returns (SendEmailToContactResponse);
+}

@@ -1,20 +1,28 @@
-import { CommandBus, EventBus, EventPublisher, MongoEventStore } from 'core';
+import { CommandBus, EventBus, EventPublisher, MongoEventStore, RpcApp, rpcController } from 'core';
 import { ContactMapper } from 'mappers';
+import { CommunicationServiceService } from 'protos';
 import { commandDb, viewDb } from './lib';
-import { SendEmailCommandHandler, CreateContactCommandHandler, CreateContactRollbackCommandHandler } from './commands/handlers';
+import {
+  SendEmailCommandHandler,
+  CreateContactCommandHandler,
+  CreateContactRollbackCommandHandler,
+} from './commands/handlers';
 import {
   UserCreatedEventHandler,
   UserCreatedFailEventHandler,
   BalanceCreatedEventHandler,
   ContactCreatedEventHandler,
   ContactCreatedFailEventHandler,
+  CampaignCompletedEventHandler,
 } from './events';
-import { BalanceSaga, UserSaga } from './sagas';
+import { BalanceSaga, CampaignSaga, UserSaga } from './sagas';
 import { EmailService, TemplateEngineService } from './services';
 import { NodemailerDriver } from './drivers';
 import { ContactRepository } from './repositories';
+import { EmailController } from './controllers';
 
 const start = async () => {
+  const app = new RpcApp();
   try {
     await Promise.all([
       commandDb.connect(),
@@ -30,6 +38,7 @@ const start = async () => {
     const eventBus = new EventBus(commandBus);
     const userSaga = new UserSaga();
     const balanceSaga = new BalanceSaga();
+    const campaignSaga = new CampaignSaga();
     const emailEventPublisher = new EventPublisher(eventBus, new MongoEventStore(emailEventCollection));
     const contactEventPublisher = new EventPublisher(eventBus, new MongoEventStore(contactEventCollection));
 
@@ -53,6 +62,7 @@ const start = async () => {
       new BalanceCreatedEventHandler(),
       new ContactCreatedEventHandler(contactRepository, contactEventPublisher),
       new ContactCreatedFailEventHandler(contactRepository, contactEventPublisher),
+      new CampaignCompletedEventHandler(),
     ].map(
       (event) =>
         eventBus.registerEventHandler(`communication`, event),
@@ -62,10 +72,17 @@ const start = async () => {
     eventBus.registerSaga(userSaga.userCreatedFail);
     eventBus.registerSaga(userSaga.userCreatedRollback);
     eventBus.registerSaga(balanceSaga.balanceCreated);
+    eventBus.registerSaga(campaignSaga.campaignCompleted);
 
-    console.log('Communication consumers are started');
+    // controllers
+    const emailController = new EmailController(commandBus);
+
+    app.server.addService(CommunicationServiceService, {
+      sendEmailToContact: rpcController(emailController.sendEmailToContact.bind(emailController)),
+    });
+    app.start();
   } catch (err) {
-    console.error(err);
+    app.logger.error(err);
     process.exit(1);
   }
 };

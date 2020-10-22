@@ -7,3 +7,6 @@ export * from './balance-created-rollback.event';
 export * from './card-created.event';
 export * from './card-created-fail.event';
 export * from './card-created-rollback.event';
+export * from './reserve-funds.event';
+export * from './reserve-funds-fail.event';
+export * from './reserve-funds-rollback.event';

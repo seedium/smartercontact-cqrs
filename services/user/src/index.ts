@@ -18,7 +18,11 @@ import {
   BalanceCreatedFailEventHandler,
   ContactCreatedFailEventHandler,
 } from './events';
-import { GetUsersQueryHandler, RetrieveUserQueryHandler } from './queries/handlers';
+import {
+  GetUsersQueryHandler,
+  RetrieveUserQueryHandler,
+  CheckUserActiveQueryHandler,
+} from './queries/handlers';
 import { UserSaga } from './sagas';
 
 const start = async () => {
@@ -51,6 +55,7 @@ const start = async () => {
 
     queryBus.registerQuery(new GetUsersQueryHandler(userRepository));
     queryBus.registerQuery(new RetrieveUserQueryHandler(userRepository));
+    queryBus.registerQuery(new CheckUserActiveQueryHandler(userRepository));
 
     await Promise.all([
       new UserCreatedEventHandler(userEventPublisher, userRepository),
@@ -72,6 +77,7 @@ const start = async () => {
       create: rpcController(userController.create.bind(userController)),
       list: rpcController(userController.list.bind(userController)),
       delete: rpcController(userController.delete.bind(userController)),
+      checkUserActive: rpcController(userController.checkUserActive.bind(userController)),
     });
     app.start();
   } catch (err) {

@@ -42,4 +42,11 @@ export class UserRepository {
 
     return !!user;
   }
+  public async isUserActive(idUser: string): Promise<boolean> {
+    const user = await this._collection.findOne({ id: idUser });
+    if (!user) {
+      return null;
+    }
+    return user.active;
+  }
 }

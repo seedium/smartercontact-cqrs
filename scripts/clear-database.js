@@ -30,10 +30,18 @@ const clearCommunicationService = async () => {
   await communicationMongoExec.removeCollection('cqrs_command_communication', 'contact_events');
   await communicationMongoExec.removeCollection('cqrs_view_communication', 'contacts');
 };
+const clearCampaignService = async () => {
+  const campaignMongoExec = new MongoExec('user');
+  await campaignMongoExec.removeCollection('cqrs_command_campaign', 'campaign_events');
+  await campaignMongoExec.removeCollection('cqrs_view_campaign', 'campaigns');
+};
 
 const clearDatabase = async () => {
-  await clearUserService();
-  await clearBillingService();
-  await clearCommunicationService();
+  await Promise.all([
+    clearUserService(),
+    clearBillingService(),
+    clearCommunicationService(),
+    clearCampaignService(),
+  ]);
 };
 clearDatabase();

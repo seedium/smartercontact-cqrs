@@ -16,6 +16,7 @@ export class UserCreateCommandHandler implements ICommandHandler<UserProto> {
       throw new Error('Email is already exists');
     }
     const userAggregate: User = this._eventPublisher.mergeObjectContext(new User(command.user));
+    userAggregate.user.setActive(true);
     await userAggregate.create();
     return userAggregate.user;
   }

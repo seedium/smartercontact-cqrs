@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message SendEmailToContactOptions {
+  string email = 1;
+}
+
+message SendEmailToContactResponse {
+  repeated string accepted = 1;
+}

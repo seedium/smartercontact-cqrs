@@ -22,6 +22,12 @@ export class BalanceRepository {
     }
     return this._balanceMapper.fromObject(balance);
   }
+  public async update(idBalance: string, balance: Balance): Promise<void> {
+    const balanceDto = this._balanceMapper.toObject(balance);
+    await this._collection.updateOne({ id: idBalance }, {
+      $set: balanceDto,
+    });
+  }
   public async retrieveByUser(idUser: string): Promise<Balance | null> {
     const balance = await this._collection.findOne({ user: idUser });
     if (!balance) {

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+message CheckUserActiveOptions {
+  string id_user = 1;
+}
+
+message CheckUserActiveResponse {
+  bool result = 1;
+}

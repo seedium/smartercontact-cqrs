@@ -10,12 +10,16 @@ export class CommandBus {
     }
     this._map.set(commandName, commandHandler);
   }
-  public async execute<T = unknown>(command: ICommand): Promise<T> {
+  public getHandler(command: Type<ICommand> | ICommand): ICommandHandler {
     const commandName = this.getCommandName(command);
     const handler = this._map.get(commandName);
     if (!handler) {
-      throw new Error(`${commandName} doesn't have any handlers`);
+      throw new Error(`Command "${commandName}" doesn't have any handlers`);
     }
+    return handler;
+  }
+  public async execute<T = unknown>(command: ICommand): Promise<T> {
+    const handler = this.getHandler(command);
     try {
       return await handler.execute(command) as T;
     } catch (err) {

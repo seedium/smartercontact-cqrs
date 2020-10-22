@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message ReserveFundsOptions {
+  string user = 1;
+  float amount = 2;
+}
+
+message ReserveFundsResponse {
+  bool result = 1;
+}

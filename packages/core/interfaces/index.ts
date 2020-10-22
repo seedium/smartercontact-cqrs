@@ -9,3 +9,5 @@ export * from './query-handler.interface';
 export * from './event-store.interface';
 export * from './data-mapper.interface';
 export * from './saga.interface';
+export * from './orchestrator-handler.interface';
+export * from './orchestrator.interface';

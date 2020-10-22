@@ -5,10 +5,12 @@ import "user/entities/user.entity.proto";
 import "user/api/retrieve-user.proto";
 import "user/api/delete-user.proto";
 import "user/api/list-user.proto";
+import "user/api/check-user-active.api.proto";
 
 service UserService {
   rpc create(User) returns (User);
   rpc retrieve(RetrieveUserOptions) returns (RetrieveUserResponse);
   rpc list(UserListOptions) returns (UserListResponse);
   rpc delete(DeleteUserOptions) returns (Void);
+  rpc checkUserActive(CheckUserActiveOptions) returns (CheckUserActiveResponse);
 }

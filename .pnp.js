@@ -43,6 +43,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:services/billing"
       },
       {
+        "name": "campaign",
+        "reference": "workspace:services/campaign"
+      },
+      {
         "name": "communication",
         "reference": "workspace:services/communication"
       },
@@ -56,6 +60,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "fallbackExclusionList": [
       ["@sc/events", ["workspace:packages/events"]],
       ["billing", ["workspace:services/billing"]],
+      ["campaign", ["workspace:services/campaign"]],
       ["communication", ["workspace:services/communication"]],
       ["core", ["workspace:packages/core"]],
       ["mappers", ["workspace:packages/mappers"]],
@@ -947,6 +952,27 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["campaign", [
+        ["workspace:services/campaign", {
+          "packageLocation": "./services/campaign/",
+          "packageDependencies": [
+            ["campaign", "workspace:services/campaign"],
+            ["@sc/events", "workspace:packages/events"],
+            ["@types/mongodb", "npm:3.5.27"],
+            ["@types/node", "npm:14.6.4"],
+            ["@types/uuid", "npm:8.3.0"],
+            ["core", "workspace:packages/core"],
+            ["dotenv", "npm:8.2.0"],
+            ["grpc", "npm:1.24.3"],
+            ["mappers", "workspace:packages/mappers"],
+            ["protos", "workspace:packages/protos"],
+            ["rxjs", "npm:6.6.3"],
+            ["tslib", "npm:2.0.1"],
+            ["uuid", "npm:8.3.1"]
+          ],
+          "linkType": "SOFT",
+        }]
+      ]],
       ["caseless", [
         ["npm:0.12.0", {
           "packageLocation": "./.yarn/cache/caseless-npm-0.12.0-e83bc5df83-147f48bff9.zip/node_modules/caseless/",
@@ -1109,6 +1135,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@sc/events", "workspace:packages/events"],
             ["@types/node", "npm:14.6.4"],
             ["@types/nodemailer", "npm:6.4.0"],
+            ["@types/uuid", "npm:8.3.0"],
             ["core", "workspace:packages/core"],
             ["dotenv", "npm:8.2.0"],
             ["mappers", "workspace:packages/mappers"],
@@ -1116,7 +1143,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["nodemailer", "npm:6.4.13"],
             ["protos", "workspace:packages/protos"],
             ["rxjs", "npm:6.6.3"],
-            ["tslib", "npm:2.0.1"]
+            ["tslib", "npm:2.0.1"],
+            ["uuid", "npm:8.3.1"]
           ],
           "linkType": "SOFT",
         }]
@@ -4618,6 +4646,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/uuid-npm-8.3.0-2f98335399-a2bdb8a3eb.zip/node_modules/uuid/",
           "packageDependencies": [
             ["uuid", "npm:8.3.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:8.3.1", {
+          "packageLocation": "./.yarn/cache/uuid-npm-8.3.1-8a5b02e900-6a5d07c556.zip/node_modules/uuid/",
+          "packageDependencies": [
+            ["uuid", "npm:8.3.1"]
           ],
           "linkType": "HARD",
         }]

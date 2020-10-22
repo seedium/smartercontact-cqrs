@@ -3,9 +3,12 @@ syntax = "proto3";
 import "billing/api/retrieve-balance.proto";
 import "billing/api/create-card.proto";
 import "billing/api/list-card.proto";
+import "billing/api/reserve-funds.api.proto";
 
 service BillingService {
   rpc retrieveBalance(RetrieveBalanceOptions) returns (RetrieveBalanceResponse);
   rpc createCard(CreateCardOptions) returns (CreateCardResponse);
   rpc listCard(ListCardOptions) returns (ListCardResponse);
+  rpc reserveFunds(ReserveFundsOptions) returns (ReserveFundsResponse);
+  rpc reserveFundsRollback(ReserveFundsOptions) returns (ReserveFundsResponse);
 }

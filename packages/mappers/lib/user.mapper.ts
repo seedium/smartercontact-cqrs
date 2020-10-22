@@ -8,6 +8,7 @@ export class UserMapper extends DataMapper<User, UserDto.AsObject> {
     Email: 'email',
     FirstName: 'first_name',
     LastName: 'last_name',
+    Active: 'active',
   };
   public readonly entity = User;
 }

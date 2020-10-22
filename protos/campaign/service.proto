@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "campaign/api/create-campaign.api.proto";
+
+service CampaignService {
+  rpc createCampaign(CreateCampaignOptions) returns (CreateCampaignResponse);
+}

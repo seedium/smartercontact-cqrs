@@ -10,6 +10,8 @@ import {
   BalanceCreatedFailEventHandler,
   BalanceDeletedEventHandler,
   CardCreatedEventHandler,
+  ReserveFundsEventHandler,
+  ReserveFundsFailEventHandler,
 } from './events/billing';
 import {
   UserCreatedEventHandler,
@@ -22,9 +24,11 @@ import {
   CreateBalanceCommandHandler,
   CreateBalanceRollbackCommandHandler,
   DeleteBalanceCommandHandler,
+  ReserveFundsCommandHandler,
+  ReserveFundsRollbackCommandHandler,
 } from './commands/handlers';
 import { UserService } from './services';
-import { UserSaga } from './sagas';
+import { BalanceSaga, UserSaga } from './sagas';
 
 const start = async () => {
   const app = new RpcApp();
@@ -43,6 +47,7 @@ const start = async () => {
     const balanceMapper = new BalanceMapper();
     const cardMapper = new CardMapper();
     const userSaga = new UserSaga();
+    const balanceSaga = new BalanceSaga();
 
     // repositories
     const balanceRepository = new BalanceRepository(balanceMapper);
@@ -53,7 +58,7 @@ const start = async () => {
     const userService = new UserService(userServiceClient);
 
     // controllers
-    const balanceController = new BalanceController(queryBus);
+    const balanceController = new BalanceController(queryBus, commandBus);
     const cardController = new CardController(commandBus, queryBus);
 
     queryBus.registerQuery(new ListCardsQueryHandler(cardRepository));
@@ -62,6 +67,8 @@ const start = async () => {
     commandBus.registerHandler(new CreateBalanceCommandHandler(balanceEventPublisher));
     commandBus.registerHandler(new CreateBalanceRollbackCommandHandler(balanceEventPublisher, balanceRepository));
     commandBus.registerHandler(new DeleteBalanceCommandHandler(balanceEventPublisher, balanceRepository));
+    commandBus.registerHandler(new ReserveFundsCommandHandler(balanceEventPublisher, balanceRepository));
+    commandBus.registerHandler(new ReserveFundsRollbackCommandHandler(balanceEventPublisher, balanceRepository))
     await Promise.all([
       new UserCreatedEventHandler(),
       new UserCreatedFailEventHandler(),
@@ -70,6 +77,8 @@ const start = async () => {
       new BalanceCreatedFailEventHandler(balanceRepository),
       new BalanceDeletedEventHandler(balanceRepository),
       new CardCreatedEventHandler(cardRepository),
+      new ReserveFundsEventHandler(balanceRepository),
+      new ReserveFundsFailEventHandler(balanceRepository),
     ].map(
       (event) =>
         eventBus.registerEventHandler(`billing`, event)),
@@ -77,12 +86,15 @@ const start = async () => {
     eventBus.registerSaga(userSaga.userCreated);
     eventBus.registerSaga(userSaga.userCreatedRollback);
     eventBus.registerSaga(userSaga.userDeleted);
+    eventBus.registerSaga(balanceSaga.reserveFundsFailed);
 
     app.server.addService(BillingServiceService, {
       retrieveBalance: rpcController(balanceController.retrieveBalance.bind(balanceController)),
       createCard: rpcController(cardController.create.bind(cardController)),
       listCard: rpcController(cardController.list.bind(cardController)),
-    })
+      reserveFunds: rpcController(balanceController.reserveFunds.bind(balanceController)),
+      reserveFundsRollback: rpcController(balanceController.reserveFundsRollback.bind(balanceController)),
+    });
     app.start();
   } catch (err) {
     app.logger.error(err);

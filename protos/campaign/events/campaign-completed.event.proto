@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+import "campaign/entities/campaign.entity.proto";
+
+message CampaignCompletedEvent {
+  Campaign campaign = 1;
+}

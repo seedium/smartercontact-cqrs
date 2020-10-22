@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import "campaign/entities/campaign.entity.proto";
+
+message CreateCampaignOptions {
+  string user = 1;
+  repeated string contacts = 2;
+}
+
+message CreateCampaignResponse {
+  Campaign campaign = 1;
+}

@@ -8,9 +8,11 @@ import {
   UserListOptions,
   UserListResponse,
   DeleteUserOptions,
+  CheckUserActiveOptions,
+  CheckUserActiveResponse,
 } from 'protos';
 import { UserCreateCommand, UserDeleteCommand } from '../commands/impl';
-import { GetUsersQuery, RetrieveUserQuery } from '../queries/impl';
+import { CheckUserActiveQuery, GetUsersQuery, RetrieveUserQuery } from '../queries/impl';
 
 export class UserController {
   constructor(
@@ -48,5 +50,11 @@ export class UserController {
   public async delete(req: DeleteUserOptions): Promise<Void> {
     await this._commandBus.execute(new UserDeleteCommand(req.getId()));
     return new Void();
+  }
+  public async checkUserActive(req: CheckUserActiveOptions): Promise<CheckUserActiveResponse> {
+    const isUserActive = await this._queryBus.execute<boolean>(new CheckUserActiveQuery(req.getIdUser()));
+    const response = new CheckUserActiveResponse();
+    response.setResult(isUserActive);
+    return response;
   }
 }

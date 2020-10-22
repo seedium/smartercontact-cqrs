@@ -9,11 +9,17 @@ export class EventPublisher {
   ) {}
   public mergeObjectContext<T extends AggregateRoot>(object: T): T {
     const eventBus = this._eventBus;
-    object.publish = async (event: IEventPublisher, aggregateId: string, aggregateVersion: number | string) => {
+    object.publish = async (
+      event: IEventPublisher,
+      aggregateId: string,
+      aggregateVersion: number | string,
+      transactionId: string,
+    ) => {
       await Promise.all([
         this._eventStore.commit(
           aggregateId,
           aggregateVersion,
+          transactionId,
           event,
           event.constructor.name,
         ),

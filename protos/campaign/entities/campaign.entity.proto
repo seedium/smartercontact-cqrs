@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+message Campaign {
+  string id = 1;
+  string user = 2;
+  string name = 3;
+  repeated string contacts = 4;
+  repeated string accepted = 5;
+  int64 created = 6;
+}

@@ -1,15 +1,16 @@
 import { EventPublisher, ICommandHandler } from 'core';
+import { EmailSentResult } from 'protos';
 import { Email } from '../../models';
 import { SendEmailCommand } from '../impl';
 import { EmailService } from '../../services';
 
-export class SendEmailCommandHandler implements ICommandHandler<boolean> {
+export class SendEmailCommandHandler implements ICommandHandler<EmailSentResult> {
   public command = SendEmailCommand;
   constructor(
     private readonly _eventPublisher: EventPublisher,
     private readonly _emailService: EmailService,
   ) {}
-  public async execute(command: SendEmailCommand) {
+  public async execute(command: SendEmailCommand): Promise<EmailSentResult> {
     const result = await this._emailService.sendEmail({
       to: this.castRecipientToArray(command.options.to),
       template: command.options.template,
@@ -19,7 +20,7 @@ export class SendEmailCommandHandler implements ICommandHandler<boolean> {
       new Email(),
     );
     await emailAggregate.emailSent(result);
-    return true;
+    return result;
   }
   public async onFail() {
     const emailAggregate = this._eventPublisher.mergeObjectContext(

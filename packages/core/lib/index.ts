@@ -6,3 +6,6 @@ export * from './query-bus';
 export * from './rpc-controller';
 export * from './rpc-app';
 export * from './observable-bus';
+export * from './orchestrator-bus';
+export * from './orchestrator-context';
+export * from './transaction-observable';

@@ -763,6 +763,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"campaign@workspace:services/campaign":
+  version: 0.0.0-use.local
+  resolution: "campaign@workspace:services/campaign"
+  dependencies:
+    "@sc/events": "workspace:packages/events"
+    "@types/mongodb": ^3.5.27
+    "@types/node": ^14.6.4
+    "@types/uuid": ^8.3.0
+    core: "workspace:packages/core"
+    dotenv: ^8.2.0
+    grpc: ^1.24.3
+    mappers: "workspace:packages/mappers"
+    protos: "workspace:packages/protos"
+    rxjs: ^6.6.3
+    tslib: ^2.0.1
+    uuid: ^8.3.1
+  languageName: unknown
+  linkType: soft
+
 "caseless@npm:~0.12.0":
   version: 0.12.0
   resolution: "caseless@npm:0.12.0"
@@ -911,6 +930,7 @@ __metadata:
     "@sc/events": "workspace:packages/events"
     "@types/node": ^14.6.4
     "@types/nodemailer": ^6.4.0
+    "@types/uuid": ^8.3.0
     core: "workspace:packages/core"
     dotenv: ^8.2.0
     mappers: "workspace:packages/mappers"
@@ -919,6 +939,7 @@ __metadata:
     protos: "workspace:packages/protos"
     rxjs: ^6.6.3
     tslib: ^2.0.1
+    uuid: ^8.3.1
   languageName: unknown
   linkType: soft
 
@@ -4066,6 +4087,15 @@ typescript@^4.0.2:
   bin:
     uuid: dist/bin/uuid
   checksum: a2bdb8a3eb80a53506e9657e7e1f70d7600562bf43fa010a645fd1deb7de1686df61c496c6f9826bac4be8db4d1ac1b976dd6fdf3bd083207eec1674507936fb
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^8.3.1":
+  version: 8.3.1
+  resolution: "uuid@npm:8.3.1"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 6a5d07c5564614271237d8bbc5c1c72abf056343e91af8f67a8e6d29957a1a061f347b8425a1e499af32f5a8f0039c44d200dff663b9a8090c51a7f7b5031534
   languageName: node
   linkType: hard
 
